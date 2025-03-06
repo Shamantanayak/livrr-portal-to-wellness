@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import AnneSection from '@/components/AnneSection';
 import Features from '@/components/Features';
 import About from '@/components/About';
 import Waitlist from '@/components/Waitlist';
 import Footer from '@/components/Footer';
 import Loader from '@/components/Loader';
+import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
   const { loading } = useApp();
@@ -47,21 +49,20 @@ const Index = () => {
         <Navbar />
         <main>
           <Hero />
+          <AnneSection />
           <Features />
           <About />
           <Waitlist />
         </main>
         <Footer />
         
-        {/* Back to top button */}
+        {/* Back to top button - enhanced with animation */}
         <a 
           href="#" 
-          className="fixed bottom-6 right-6 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center text-livrr-green transition-all duration-300 hover:bg-livrr-green hover:text-white hover:shadow-lg"
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-livrr-green to-livrr-blue w-12 h-12 rounded-full shadow-md flex items-center justify-center text-white transition-all duration-300 hover:shadow-lg hover:scale-110 z-50"
           aria-label="Back to top"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-          </svg>
+          <ArrowUp className="w-5 h-5" />
         </a>
       </div>
     </>
