@@ -1,20 +1,23 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
-  { name: 'Features', href: '#features' },
-  { name: 'About', href: '#about' },
+  { name: 'Home', href: '/' },
+  { name: 'Features', href: '/#features' },
+  { name: 'About', href: '/#about' },
   { name: 'Products', href: '/products' },
   { name: 'Survey', href: '/survey' },
-  { name: 'Join Waitlist', href: '#waitlist' },
+  { name: 'AI Chat', href: '/ai-chat' },
+  { name: 'Join Waitlist', href: '/#waitlist' },
 ];
 
 const Navbar = () => {
   const { activeSection } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +32,16 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLinkClick = (href: string) => {
+    setMobileMenuOpen(false);
+    
+    // If it's an anchor link on the homepage
+    if (href.startsWith('/#') && location.pathname !== '/') {
+      // Navigate to homepage first, then scroll to the anchor
+      window.location.href = href;
+    }
+  };
 
   return (
     <header
@@ -55,14 +68,16 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => {
             // Determine if this is an internal anchor link or a page link
-            const isInternalLink = link.href.startsWith('#');
+            const isInternalAnchor = link.href.includes('/#');
+            const isExternalPage = !link.href.startsWith('/#') && link.href !== '/';
             
-            return isInternalLink ? (
+            return isInternalAnchor ? (
               <a
                 key={link.name}
                 href={link.href}
+                onClick={() => handleLinkClick(link.href)}
                 className={`relative font-medium hover:text-livrr-green transition-colors duration-300 ${
-                  activeSection === link.href.substring(1)
+                  activeSection === link.href.split('#')[1] && location.pathname === '/'
                     ? 'text-livrr-green'
                     : 'text-livrr-gray-dark'
                 }`}
@@ -70,7 +85,7 @@ const Navbar = () => {
                 <span>{link.name}</span>
                 <span 
                   className={`absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 ${
-                    activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'
+                    activeSection === link.href.split('#')[1] && location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} 
                 />
               </a>
@@ -78,10 +93,13 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="relative font-medium hover:text-livrr-green transition-colors duration-300 text-livrr-gray-dark group"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`relative font-medium hover:text-livrr-green transition-colors duration-300 group
+                  ${location.pathname === link.href ? 'text-livrr-green' : 'text-livrr-gray-dark'}`}
               >
                 <span>{link.name}</span>
-                <span className="absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 w-0 group-hover:w-full" />
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 
+                  ${location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
             );
           })}
@@ -129,18 +147,18 @@ const Navbar = () => {
       >
         <nav className="container flex flex-col py-8 space-y-6">
           {navLinks.map((link) => {
-            const isInternalLink = link.href.startsWith('#');
+            const isInternalAnchor = link.href.includes('/#');
             
-            return isInternalLink ? (
+            return isInternalAnchor ? (
               <a
                 key={link.name}
                 href={link.href}
+                onClick={() => handleLinkClick(link.href)}
                 className={`text-xl font-medium hover:text-livrr-green transition-colors duration-300 ${
-                  activeSection === link.href.substring(1)
+                  activeSection === link.href.split('#')[1] && location.pathname === '/'
                     ? 'text-livrr-green'
                     : 'text-livrr-gray-dark'
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
@@ -148,8 +166,9 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-xl font-medium hover:text-livrr-green transition-colors duration-300 text-livrr-gray-dark"
                 onClick={() => setMobileMenuOpen(false)}
+                className={`text-xl font-medium hover:text-livrr-green transition-colors duration-300 
+                  ${location.pathname === link.href ? 'text-livrr-green' : 'text-livrr-gray-dark'}`}
               >
                 {link.name}
               </Link>

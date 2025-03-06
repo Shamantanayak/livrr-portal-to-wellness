@@ -15,7 +15,7 @@ const Products = () => {
       title: "Organic Foods",
       description: "Farm-fresh produce and pantry staples grown without harmful pesticides.",
       icon: <Leaf className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9",
       color: "from-green-400 to-emerald-500"
     },
     {

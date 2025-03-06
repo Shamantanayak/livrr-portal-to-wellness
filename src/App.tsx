@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import Survey from "./pages/Survey";
+import AIChat from "./pages/AIChat";
 import NotFound from "./pages/NotFound";
 import { AppProvider } from "./context/AppContext";
 
@@ -23,6 +24,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
             <Route path="/survey" element={<Survey />} />
+            <Route path="/ai-chat" element={<AIChat />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
