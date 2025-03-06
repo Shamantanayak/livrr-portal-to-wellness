@@ -1,9 +1,9 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaveDivider from '@/components/ui/WaveDivider';
-import { ArrowRight, Leaf, Shield, Heart, Badge, Sparkles } from 'lucide-react';
+import CustomCursor from '@/components/CustomCursor';
+import { ArrowRight, ArrowUp, Leaf, Shield, Heart, Badge, Sparkles } from 'lucide-react';
 import { useScrollReveal, usePulseAnimation } from '@/utils/animations';
 
 const Products = () => {
@@ -79,12 +79,47 @@ const Products = () => {
     }
   ];
   
+  const dietProducts = [
+    {
+      name: "Keto Diet Box",
+      description: "Complete meal essentials for 7 days of keto-friendly eating",
+      price: "$149.99",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+      tag: "Popular",
+      category: "Diet Plan"
+    },
+    {
+      name: "Plant-Based Protein Pack",
+      description: "Organic plant proteins for vegetarians and vegans",
+      price: "$89.99",
+      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c",
+      tag: "Bestseller",
+      category: "Diet Plan"
+    },
+    {
+      name: "Low-Carb Essentials",
+      description: "Carb-conscious foods for managed weight loss",
+      price: "$119.99",
+      image: "https://images.unsplash.com/photo-1607532941433-304659e8198a",
+      tag: "New",
+      category: "Diet Plan"
+    },
+    {
+      name: "Detox & Cleanse Bundle",
+      description: "Natural ingredients to reset your system",
+      price: "$79.99",
+      image: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f",
+      tag: "Essential",
+      category: "Diet Plan"
+    }
+  ];
+  
   return (
     <div className="bg-gradient-to-b from-white to-livrr-beige/10 min-h-screen">
+      <CustomCursor />
       <Navbar />
       
       <main className="pt-24">
-        {/* Header */}
         <section 
           ref={headerRef}
           className="relative overflow-hidden py-20 md:py-28"
@@ -135,7 +170,6 @@ const Products = () => {
           <WaveDivider position="bottom" waveColor="fill-white" />
         </section>
         
-        {/* Product Categories */}
         <section id="categories" className="py-20 bg-white">
           <div className="container">
             <div className="text-center mb-16">
@@ -178,7 +212,56 @@ const Products = () => {
           </div>
         </section>
         
-        {/* Featured Products */}
+        <section id="diet-plans" className="py-20 bg-gradient-to-b from-livrr-beige/10 to-white">
+          <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="section-title">Diet-Based Products</h2>
+              <p className="section-subtitle">
+                Specially curated diet plans and products to support your nutritional needs
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {dietProducts.map((product, index) => (
+                <div 
+                  key={product.name}
+                  className="reveal glass-card rounded-xl overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300"
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <div className="relative h-60 overflow-hidden">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    
+                    <div className="absolute top-4 right-4 bg-livrr-green text-white text-xs font-medium px-3 py-1 rounded-full">
+                      {product.tag}
+                    </div>
+                    
+                    <div className="absolute bottom-4 left-4 bg-livrr-beige/80 backdrop-blur-sm text-livrr-green-dark text-xs font-medium px-3 py-1 rounded-full">
+                      {product.category}
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-lg font-semibold text-livrr-green-dark">{product.name}</h3>
+                      <span className="font-bold text-livrr-green">{product.price}</span>
+                    </div>
+                    
+                    <p className="text-livrr-gray-dark text-sm mb-4">{product.description}</p>
+                    
+                    <button className="w-full button-primary text-sm py-2">
+                      Coming Soon
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
         <section id="featured" className="py-20 bg-gradient-to-b from-white to-livrr-beige/10">
           <div className="container">
             <div className="text-center mb-16">
@@ -251,13 +334,12 @@ const Products = () => {
       
       <Footer />
       
-      {/* Back to top button */}
       <a 
         href="#" 
         className="fixed bottom-6 right-6 bg-gradient-to-r from-livrr-green to-livrr-blue w-12 h-12 rounded-full shadow-md flex items-center justify-center text-white transition-all duration-300 hover:shadow-lg hover:scale-110 z-50"
         aria-label="Back to top"
       >
-        <ArrowRight className="w-5 h-5 transform rotate-270" />
+        <ArrowUp className="w-5 h-5" />
       </a>
     </div>
   );
