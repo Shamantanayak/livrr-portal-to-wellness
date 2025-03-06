@@ -9,6 +9,7 @@ import About from '@/components/About';
 import Waitlist from '@/components/Waitlist';
 import Footer from '@/components/Footer';
 import Loader from '@/components/Loader';
+import CustomCursor from '@/components/CustomCursor';
 import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
@@ -44,6 +45,7 @@ const Index = () => {
   return (
     <>
       <Loader />
+      <CustomCursor />
       
       <div className={loading ? 'opacity-0' : 'opacity-100 transition-opacity duration-700'}>
         <Navbar />

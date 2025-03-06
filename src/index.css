@@ -23,6 +23,7 @@
 
   * {
     @apply border-border;
+    cursor: none !important;
   }
 
   html {
@@ -79,6 +80,16 @@
   .form-input {
     @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-livrr-green/50 focus:border-transparent transition-all duration-300;
   }
+
+  /* Magnetic buttons animation */
+  .magnetic-button {
+    @apply relative transition-transform duration-300 ease-out;
+  }
+}
+
+/* Cursor interactions */
+a, button, [role="button"], input, select, textarea, [tabindex="0"] {
+  @apply cursor-none transition-transform duration-300 hover:scale-105;
 }
 
 /* Scroll animations */
@@ -90,6 +101,55 @@
 .reveal.active {
   @apply opacity-100;
   transform: translateY(0);
+}
+
+/* Longevity glow elements */
+.longevity-glow {
+  @apply absolute -z-10 bg-gradient-radial from-livrr-green/20 to-transparent rounded-full;
+  filter: blur(20px);
+  animation: pulse-slow 6s infinite alternate;
+}
+
+/* Additional animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
 
 /* Smooth page transitions */

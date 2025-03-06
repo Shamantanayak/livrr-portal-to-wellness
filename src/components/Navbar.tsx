@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Features', href: '#features' },
   { name: 'About', href: '#about' },
+  { name: 'Products', href: '/products' },
   { name: 'Join Waitlist', href: '#waitlist' },
 ];
 
@@ -34,8 +36,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between">
-        <a 
-          href="#" 
+        <Link 
+          to="/" 
           className="text-2xl font-display font-bold text-livrr-green-dark flex items-center"
         >
           <span className="relative">
@@ -46,28 +48,42 @@ const Navbar = () => {
               }`} 
             />
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`relative font-medium hover:text-livrr-green transition-colors duration-300 ${
-                activeSection === link.href.substring(1)
-                  ? 'text-livrr-green'
-                  : 'text-livrr-gray-dark'
-              }`}
-            >
-              <span>{link.name}</span>
-              <span 
-                className={`absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 ${
-                  activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'
-                }`} 
-              />
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            // Determine if this is an internal anchor link or a page link
+            const isInternalLink = link.href.startsWith('#');
+            
+            return isInternalLink ? (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`relative font-medium hover:text-livrr-green transition-colors duration-300 ${
+                  activeSection === link.href.substring(1)
+                    ? 'text-livrr-green'
+                    : 'text-livrr-gray-dark'
+                }`}
+              >
+                <span>{link.name}</span>
+                <span 
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 ${
+                    activeSection === link.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} 
+                />
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="relative font-medium hover:text-livrr-green transition-colors duration-300 text-livrr-gray-dark group"
+              >
+                <span>{link.name}</span>
+                <span className="absolute -bottom-1 left-0 h-0.5 bg-livrr-green transition-all duration-300 w-0 group-hover:w-full" />
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -111,20 +127,33 @@ const Navbar = () => {
         style={{ top: '61px' }}
       >
         <nav className="container flex flex-col py-8 space-y-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`text-xl font-medium hover:text-livrr-green transition-colors duration-300 ${
-                activeSection === link.href.substring(1)
-                  ? 'text-livrr-green'
-                  : 'text-livrr-gray-dark'
-              }`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isInternalLink = link.href.startsWith('#');
+            
+            return isInternalLink ? (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`text-xl font-medium hover:text-livrr-green transition-colors duration-300 ${
+                  activeSection === link.href.substring(1)
+                    ? 'text-livrr-green'
+                    : 'text-livrr-gray-dark'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-xl font-medium hover:text-livrr-green transition-colors duration-300 text-livrr-gray-dark"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>
