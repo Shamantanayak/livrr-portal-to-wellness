@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -49,6 +48,57 @@ const Products = () => {
     }
   ];
   
+  const dietProducts = [
+    {
+      name: "Keto Diet Box",
+      description: "Complete meal essentials for 7 days of keto-friendly eating",
+      price: "$149.99",
+      image: "/lovable-uploads/c24e08c5-840d-4a5d-9b2b-8d30086e21c7.png",
+      tag: "Popular",
+      category: "Diet Plan"
+    },
+    {
+      name: "Plant-Based Protein Pack",
+      description: "Organic plant proteins for vegetarians and vegans",
+      price: "$89.99",
+      image: "/lovable-uploads/6d1e0a2f-b6f5-4575-ab34-cf6b7d7485d7.png",
+      tag: "Bestseller",
+      category: "Diet Plan"
+    },
+    {
+      name: "Low-Carb Essentials",
+      description: "Carb-conscious foods for managed weight loss",
+      price: "$119.99",
+      image: "/lovable-uploads/724eccf5-f1d3-44c2-ae25-94fa58236734.png",
+      tag: "New",
+      category: "Diet Plan"
+    },
+    {
+      name: "Meal Planning Consultation",
+      description: "Personalized nutrition guidance for your health goals",
+      price: "$79.99",
+      image: "/lovable-uploads/ffde7008-ba37-42d6-8b1c-82590d605e0f.png",
+      tag: "Essential",
+      category: "Diet Plan"
+    },
+    {
+      name: "7-Day Balanced Meal Plan",
+      description: "Complete weekly meal plan with shopping list and recipes",
+      price: "$59.99",
+      image: "/lovable-uploads/b13c76d6-d0a5-4749-a854-b73df29be6c4.png",
+      tag: "New",
+      category: "Diet Plan"
+    },
+    {
+      name: "Health Coach Consultation",
+      description: "One-on-one session with a certified nutrition expert",
+      price: "$99.99",
+      image: "/lovable-uploads/74dbb061-3495-4f67-bb93-3b705eff61ed.png",
+      tag: "Premium",
+      category: "Diet Plan"
+    }
+  ];
+  
   const featuredProducts = [
     {
       name: "Organic Superfood Mix",
@@ -77,41 +127,6 @@ const Products = () => {
       rating: 4.9,
       image: "https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Essential"
-    }
-  ];
-  
-  const dietProducts = [
-    {
-      name: "Keto Diet Box",
-      description: "Complete meal essentials for 7 days of keto-friendly eating",
-      price: "$149.99",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      tag: "Popular",
-      category: "Diet Plan"
-    },
-    {
-      name: "Plant-Based Protein Pack",
-      description: "Organic plant proteins for vegetarians and vegans",
-      price: "$89.99",
-      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      tag: "Bestseller",
-      category: "Diet Plan"
-    },
-    {
-      name: "Low-Carb Essentials",
-      description: "Carb-conscious foods for managed weight loss",
-      price: "$119.99",
-      image: "https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      tag: "New",
-      category: "Diet Plan"
-    },
-    {
-      name: "Detox & Cleanse Bundle",
-      description: "Natural ingredients to reset your system",
-      price: "$79.99",
-      image: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      tag: "Essential",
-      category: "Diet Plan"
     }
   ];
   
@@ -222,7 +237,7 @@ const Products = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {dietProducts.map((product, index) => (
                 <div 
                   key={product.name}
