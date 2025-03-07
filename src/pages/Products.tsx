@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -15,35 +16,35 @@ const Products = () => {
       title: "Organic Foods",
       description: "Farm-fresh produce and pantry staples grown without harmful pesticides.",
       icon: <Leaf className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9",
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       color: "from-green-400 to-emerald-500"
     },
     {
       title: "Wellness Supplements",
       description: "Natural supplements to support your health journey and longevity goals.",
       icon: <Shield className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1589758438368-0ad531db3366",
+      image: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       color: "from-amber-400 to-orange-500"
     },
     {
       title: "Fitness Equipment",
       description: "High-quality tools designed for effective home workouts and mobility.",
       icon: <Heart className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       color: "from-blue-400 to-indigo-500"
     },
     {
       title: "Personal Care",
       description: "Clean beauty and self-care products free from harmful chemicals.",
       icon: <Sparkles className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b",
+      image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       color: "from-purple-400 to-pink-500"
     },
     {
       title: "Meal Plans",
       description: "Ready-to-cook organic meal kits with simple 15-30 minute preparation.",
       icon: <Badge className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2",
+      image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       color: "from-livrr-green to-livrr-blue"
     }
   ];
@@ -53,28 +54,28 @@ const Products = () => {
       name: "Organic Superfood Mix",
       price: "$24.99",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0",
+      image: "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Bestseller"
     },
     {
       name: "Longevity Support Complex",
       price: "$39.99",
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1577174881658-0f30ed549adc",
+      image: "https://images.unsplash.com/photo-1577174881658-0f30ed549adc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "New"
     },
     {
       name: "Premium Yoga Set",
       price: "$89.99",
       rating: 4.7,
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b",
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Popular"
     },
     {
       name: "Natural Sleep Aid",
       price: "$19.99",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1556760544-74068565f05c",
+      image: "https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Essential"
     }
   ];
@@ -84,7 +85,7 @@ const Products = () => {
       name: "Keto Diet Box",
       description: "Complete meal essentials for 7 days of keto-friendly eating",
       price: "$149.99",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Popular",
       category: "Diet Plan"
     },
@@ -92,7 +93,7 @@ const Products = () => {
       name: "Plant-Based Protein Pack",
       description: "Organic plant proteins for vegetarians and vegans",
       price: "$89.99",
-      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c",
+      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Bestseller",
       category: "Diet Plan"
     },
@@ -100,7 +101,7 @@ const Products = () => {
       name: "Low-Carb Essentials",
       description: "Carb-conscious foods for managed weight loss",
       price: "$119.99",
-      image: "https://images.unsplash.com/photo-1607532941433-304659e8198a",
+      image: "https://images.unsplash.com/photo-1607532941433-304659e8198a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "New",
       category: "Diet Plan"
     },
@@ -108,7 +109,7 @@ const Products = () => {
       name: "Detox & Cleanse Bundle",
       description: "Natural ingredients to reset your system",
       price: "$79.99",
-      image: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f",
+      image: "https://images.unsplash.com/photo-1610440042657-612c34d95e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Essential",
       category: "Diet Plan"
     }

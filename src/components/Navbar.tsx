@@ -5,11 +5,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Features', href: '/#features' },
+  { name: 'Livrr Tribe', href: '/livrr-tribe' },
   { name: 'About', href: '/#about' },
   { name: 'Products', href: '/products' },
   { name: 'Survey', href: '/survey' },
-  { name: 'AI Chat', href: '/ai-chat' },
+  { name: 'Longi', href: '/longi' },
+  { name: 'Articles', href: '/articles' },
   { name: 'Join Waitlist', href: '/#waitlist' },
 ];
 
