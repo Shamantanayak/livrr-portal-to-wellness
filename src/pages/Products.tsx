@@ -13,37 +13,37 @@ const Products = () => {
   const productCategories = [
     {
       title: "Homeopathy",
-      description: "Natural remedies that stimulate the body's self-healing mechanisms.",
+      description: "Natural remedies that stimulate the body's self-healing mechanisms for improved wellness and vitality.",
       icon: <Leaf className="h-8 w-8" />,
-      image: "/lovable-uploads/2981763c-43ef-4a6e-a4cd-66d408017d3d.png",
+      image: "/lovable-uploads/6e34af2c-c2c5-4e25-9b92-e3cb9c62c2e5.png",
       color: "from-green-400 to-emerald-500"
     },
     {
       title: "Unani Medicine",
-      description: "Traditional healing system focusing on balancing vital humors in the body.",
+      description: "Traditional holistic healing system focusing on balancing vital humors in the body for optimal health.",
       icon: <Shield className="h-8 w-8" />,
-      image: "/lovable-uploads/4d6e81cf-1e5f-4ec4-988e-226c4de5bfdf.png",
+      image: "/lovable-uploads/c75fb903-da12-44b3-be27-3c08bf44a0b7.png",
       color: "from-green-600 to-green-800"
     },
     {
       title: "Naturopathy",
-      description: "Holistic approach using the healing power of nature to maintain health.",
+      description: "Holistic approach using the natural healing power of nature to maintain health and overall wellbeing.",
       icon: <Heart className="h-8 w-8" />,
-      image: "/lovable-uploads/b8f56306-fd0c-4b09-a411-4be03a93ced1.png",
+      image: "/lovable-uploads/d1fc7efd-9398-452c-bf68-6a1dba87c2eb.png",
       color: "from-emerald-400 to-green-600"
     },
     {
       title: "Ayurveda",
-      description: "Ancient natural healing system focusing on balance between mind, body, and spirit.",
+      description: "Ancient natural healing system focusing on perfect balance between mind, body, and spirit for longevity.",
       icon: <Sparkles className="h-8 w-8" />,
-      image: "/lovable-uploads/a33006df-c93d-4f96-b838-9fda2abd3926.png",
+      image: "/lovable-uploads/d877c9ba-f70b-454e-b3bb-d5c54e3b1bbc.png",
       color: "from-amber-400 to-yellow-600"
     },
     {
       title: "Siddha Medicine",
-      description: "Traditional medical system from South India using herbs, minerals, and animal products.",
+      description: "Traditional South Indian medical system using herbs, minerals, and animal products for holistic healing.",
       icon: <Badge className="h-8 w-8" />,
-      image: "/lovable-uploads/a8b9aae6-dba9-4db5-90d9-f3c83a2f849e.png",
+      image: "/lovable-uploads/9f3bdcaa-b254-4fb3-b42d-0c46dd4c2cff.png",
       color: "from-stone-600 to-stone-800"
     }
   ];
@@ -125,7 +125,7 @@ const Products = () => {
       name: "Natural Sleep Aid",
       price: "$19.99",
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
+      image: "https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
       tag: "Essential"
     }
   ];
@@ -217,7 +217,7 @@ const Products = () => {
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-livrr-green-dark mb-2">{category.title}</h3>
                     <p className="text-livrr-gray-dark mb-4">{category.description}</p>
-                    <a href="#" className="text-livrr-green font-medium flex items-center gap-2 group-hover:underline">
+                    <a href="#waitlist" className="text-livrr-green font-medium flex items-center gap-2 group-hover:underline">
                       Browse Products
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </a>
