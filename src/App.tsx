@@ -12,6 +12,7 @@ import LivrrTribe from "./pages/LivrrTribe";
 import Articles from "./pages/Articles";
 import NotFound from "./pages/NotFound";
 import { AppProvider } from "./context/AppContext";
+import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <CustomCursor />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />

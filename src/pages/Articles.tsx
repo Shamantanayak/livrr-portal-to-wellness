@@ -1,116 +1,136 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal } from '@/utils/animations';
-import { BookOpen, Clock, User, ArrowRight, Search, Filter } from 'lucide-react';
-import WaveDivider from '@/components/ui/WaveDivider';
+import { Newspaper, Clock, ArrowRight } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
+
+interface Article {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  source: string;
+  date: string;
+  category: string;
+  url: string;
+}
 
 const Articles = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
   
-  const featuredArticles = [
-    {
-      title: "Secrets of Sadhus: The 100+ Year Lifespan Mystery",
-      excerpt: "Discover how Hindu Sadhus maintain extraordinary longevity through specific dietary practices, yoga, and meditation techniques that anyone can adopt.",
-      image: "https://images.unsplash.com/photo-1535132011086-b8818f016104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      author: "Dr. Anand Sharma",
-      date: "May 15, 2023",
-      readTime: "12 min read",
-      category: "Ancient Wisdom"
-    },
-    {
-      title: "Vrushi Traditions: Seasonal Eating for Maximum Vitality",
-      excerpt: "How ancient Ayurvedic Vrushi practitioners developed a system of eating according to seasons that modern science now confirms boosts immunity and longevity.",
-      image: "https://images.unsplash.com/photo-1611072172377-9aaaa1faab4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      author: "Maya Patel, PhD",
-      date: "April 3, 2023",
-      readTime: "9 min read",
-      category: "Nutrition"
-    },
-    {
-      title: "The Fasting Technique of Jain Monks: Living Beyond 100",
-      excerpt: "An exploration of how specific fasting protocols practiced by Jain monks activate cellular regeneration pathways that extend lifespan significantly.",
-      image: "https://images.unsplash.com/photo-1565843248736-8c41e6db117b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      author: "Rajiv Mehta",
-      date: "June 28, 2023",
-      readTime: "15 min read",
-      category: "Fasting"
-    }
-  ];
-  
-  const articles = [
-    {
-      title: "Meditation Techniques of 100-Year-Old Yogis",
-      excerpt: "Learn the specific breathing and meditation practices used by yogis who have surpassed the century mark in perfect health.",
-      image: "https://images.unsplash.com/photo-1522075782449-e45a34f1ddfb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "March 18, 2023",
-      readTime: "7 min read",
-      category: "Meditation"
-    },
-    {
-      title: "The Role of Herbs in Longevity: Lessons from Ancient Healers",
-      excerpt: "Which herbs have been consistently used by centenarians across cultures? We explore the scientific evidence behind these botanical wonders.",
-      image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "April 22, 2023",
-      readTime: "10 min read",
-      category: "Herbalism"
-    },
-    {
-      title: "Sun Gazing: The Forgotten Technique of Vitality",
-      excerpt: "How controlled exposure to early morning sunlight may influence hormonal patterns that impact longevity, as practiced by ancient cultures.",
-      image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "May 5, 2023",
-      readTime: "8 min read",
-      category: "Natural Therapies"
-    },
-    {
-      title: "Sleep Patterns of Long-Lived Mountain Dwellers",
-      excerpt: "In the Himalayan regions, people regularly live past 90. Their unique sleep routines may hold the key to their extraordinary health.",
-      image: "https://images.unsplash.com/photo-1493329025335-18542a61595f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "June 12, 2023",
-      readTime: "6 min read",
-      category: "Sleep Science"
-    },
-    {
-      title: "Living Water: How Ancient Communities Purified and Energized Water",
-      excerpt: "Before modern filtration, certain communities created water with unique properties that may have contributed to their remarkable lifespans.",
-      image: "https://images.unsplash.com/photo-1470125634816-3383a79c2e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "July 8, 2023",
-      readTime: "11 min read",
-      category: "Hydration"
-    },
-    {
-      title: "The Movement Patterns of Centenarians",
-      excerpt: "It's not just about exercise—specific ways of moving throughout the day may activate longevity pathways. Learn from those who've lived longest.",
-      image: "https://images.unsplash.com/photo-1516307147043-4db20518dd5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      date: "August 15, 2023",
-      readTime: "9 min read",
-      category: "Movement"
-    }
-  ];
-  
-  const categories = [
-    "All Articles", 
-    "Ancient Wisdom", 
-    "Nutrition", 
-    "Meditation", 
-    "Fasting", 
-    "Herbalism", 
-    "Movement", 
-    "Sleep Science"
-  ];
+  useEffect(() => {
+    // Simulating fetching articles from an API
+    const fetchArticles = async () => {
+      setIsLoading(true);
+      try {
+        // This would normally be a fetch to a real API
+        // For now, we're using sample data
+        setTimeout(() => {
+          const sampleArticles: Article[] = [
+            {
+              id: 1,
+              title: "Ancient Wisdom: How Sadhus Achieve Longevity Through Meditation",
+              description: "Exploring the centuries-old practices of sadhus and how their meditation techniques contribute to their extraordinary lifespans.",
+              image: "https://images.unsplash.com/photo-1515444744559-7be63e1600de",
+              source: "Wellness Today",
+              date: "2023-05-15",
+              category: "Traditional Practices",
+              url: "#"
+            },
+            {
+              id: 2,
+              title: "The Science Behind Vrushis: Natural Plant-Based Compounds for Longevity",
+              description: "Research reveals how ancient vrushi compounds from specific plants can promote cellular rejuvenation and extend lifespan.",
+              image: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f",
+              source: "Health Sciences Journal",
+              date: "2023-06-02",
+              category: "Nutrition",
+              url: "#"
+            },
+            {
+              id: 3,
+              title: "Modern Medical Study Confirms Benefits of Traditional Fasting Practices",
+              description: "New research from leading universities validates the health benefits of intermittent fasting techniques practiced for centuries.",
+              image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+              source: "Medical Research Weekly",
+              date: "2023-07-10",
+              category: "Nutrition",
+              url: "#"
+            },
+            {
+              id: 4,
+              title: "Himalayan Herbs: Nature's Secret to Combat Cellular Aging",
+              description: "Exploring the rare herbs used by mountain communities to maintain vitality and cognitive function well into their 90s.",
+              image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97",
+              source: "Natural Health Magazine",
+              date: "2023-08-05",
+              category: "Herbal Medicine",
+              url: "#"
+            },
+            {
+              id: 5,
+              title: "Cold Exposure Therapy: Ancient Practice Now Backed by Science",
+              description: "How controlled exposure to cold environments can trigger longevity pathways in the human body, a practice used for centuries.",
+              image: "https://images.unsplash.com/photo-1510925758641-869d353cecc7",
+              source: "Biohacking Journal",
+              date: "2023-09-12",
+              category: "Lifestyle",
+              url: "#"
+            },
+            {
+              id: 6,
+              title: "The Role of Community in Centenarian Villages: Lessons from the Blue Zones",
+              description: "Study of communities with high concentrations of centenarians reveals the importance of social connections to longevity.",
+              image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac",
+              source: "Social Sciences Review",
+              date: "2023-04-25",
+              category: "Community",
+              url: "#"
+            }
+          ];
+          
+          setArticles(sampleArticles);
+          setIsLoading(false);
+          
+          toast({
+            title: "Articles Updated",
+            description: "Latest health and longevity articles loaded.",
+          });
+        }, 1500);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+        setIsLoading(false);
+        toast({
+          title: "Error",
+          description: "Failed to fetch articles. Please try again later.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    fetchArticles();
+  }, [toast]);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-livrr-beige/10">
       <CustomCursor />
       <Navbar />
       
-      <main className="pt-24">
-        <section 
+      <main className="pt-24 pb-20">
+        <section
           ref={headerRef}
-          className="relative overflow-hidden py-16 md:py-20"
+          className="relative overflow-hidden py-20"
         >
           <div className={`container transition-all duration-700 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -120,187 +140,81 @@ const Articles = () => {
                 Join Livrr thrive longevity
               </span>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-livrr-green-dark">
-                Longevity Articles
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-livrr-green-dark">
+                Longevity & Wellness Articles
               </h1>
               
-              <p className="text-lg text-livrr-gray-dark mb-10">
-                Discover ancient wisdom and modern science on how sadhus, vrushis, and other practitioners 
-                achieve extraordinary lifespans of 100+ years.
+              <p className="text-lg text-livrr-gray-dark mb-6">
+                Discover ancient wisdom and modern research on extending human lifespan naturally.
+                Learn from those who have lived beyond 100 years through traditional practices.
               </p>
-              
-              <div className="relative max-w-xl mx-auto">
-                <input
-                  type="text"
-                  placeholder="Search for articles..."
-                  className="w-full py-3 pl-5 pr-12 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-livrr-green/30"
-                />
-                <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-livrr-green">
-                  <Search className="h-5 w-5" />
-                </button>
-              </div>
             </div>
           </div>
-          
-          <WaveDivider position="bottom" waveColor="fill-white" />
         </section>
         
-        <section className="py-16 bg-white">
+        <section className="py-12 bg-white">
           <div className="container">
-            <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-livrr-green-dark">
-                Featured Articles
-              </h2>
-              <a href="#" className="text-livrr-green font-medium flex items-center gap-1 hover:underline">
-                View all
-                <ArrowRight className="h-4 w-4" />
-              </a>
+            <div className="mb-8 flex justify-between items-center">
+              <h2 className="text-2xl font-display font-bold text-livrr-green-dark">Latest Articles</h2>
+              
+              <div className="flex items-center gap-2 text-livrr-green">
+                <Newspaper className="h-5 w-5" />
+                <span className="text-sm font-medium">Updated Daily</span>
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredArticles.map((article, index) => (
-                <div 
-                  key={index}
-                  className="reveal glass-card rounded-xl overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="relative h-56 overflow-hidden">
-                    <img 
-                      src={article.image} 
-                      alt={article.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-sm text-livrr-green-dark text-xs font-medium px-3 py-1 rounded-full">
-                      {article.category}
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="glass-card rounded-xl overflow-hidden animate-pulse">
+                    <div className="bg-gray-200 aspect-video w-full"></div>
+                    <div className="p-6">
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                      <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-5/6"></div>
                     </div>
                   </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-livrr-green-dark mb-2 line-clamp-2">
-                      {article.title}
-                    </h3>
-                    
-                    <p className="text-livrr-gray-dark text-sm mb-4 line-clamp-3">
-                      {article.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-livrr-green/20 flex items-center justify-center text-livrr-green">
-                          <User className="h-3 w-3" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {articles.map((article) => (
+                  <a 
+                    key={article.id}
+                    href={article.url}
+                    className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group"
+                  >
+                    <div className="aspect-video w-full overflow-hidden">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-medium bg-livrr-green/10 text-livrr-green-dark px-2 py-1 rounded-full">
+                          {article.category}
+                        </span>
+                        <div className="flex items-center text-livrr-gray text-xs">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {formatDate(article.date)}
                         </div>
-                        <span className="text-xs text-livrr-gray-dark">{article.author}</span>
                       </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-3 w-3 text-livrr-green" />
-                        <span className="text-xs text-livrr-gray-dark">{article.readTime}</span>
+                      <h3 className="text-lg font-semibold text-livrr-green-dark mb-2 line-clamp-2">{article.title}</h3>
+                      <p className="text-sm text-livrr-gray-dark mb-4 line-clamp-3">{article.description}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-livrr-gray">{article.source}</span>
+                        <span className="text-livrr-green flex items-center text-sm group-hover:underline">
+                          Read more
+                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        </span>
                       </div>
                     </div>
-                    
-                    <a 
-                      href="#" 
-                      className="text-livrr-green font-medium text-sm flex items-center gap-1 group-hover:underline"
-                    >
-                      Read article
-                      <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        <section className="py-16 bg-livrr-beige/10">
-          <div className="container">
-            <div className="mb-10">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-livrr-green-dark">
-                  All Articles
-                </h2>
-                
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4 text-livrr-green" />
-                  <span className="text-sm text-livrr-gray-dark">Filter by:</span>
-                  <select className="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-livrr-green/30">
-                    <option value="">All Categories</option>
-                    {categories.map((category, index) => (
-                      <option key={index} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
+                  </a>
+                ))}
               </div>
-              
-              <div className="overflow-x-auto pb-4">
-                <div className="flex space-x-2 min-w-max">
-                  {categories.map((category, index) => (
-                    <button
-                      key={index}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                        index === 0 
-                          ? 'bg-livrr-green text-white' 
-                          : 'bg-white text-livrr-gray-dark hover:bg-livrr-green/10'
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articles.map((article, index) => (
-                <div 
-                  key={index}
-                  className="reveal glass-card rounded-xl overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300"
-                  style={{ transitionDelay: `${index * 50}ms` }}
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={article.image} 
-                      alt={article.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm text-livrr-green-dark text-xs font-medium px-3 py-1 rounded-full">
-                      {article.category}
-                    </div>
-                  </div>
-                  
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-livrr-green-dark mb-2 line-clamp-2">
-                      {article.title}
-                    </h3>
-                    
-                    <p className="text-livrr-gray-dark text-sm mb-4 line-clamp-2">
-                      {article.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-3 w-3 text-livrr-green" />
-                        <span className="text-xs text-livrr-gray-dark">{article.readTime}</span>
-                      </div>
-                      
-                      <a 
-                        href="#" 
-                        className="text-livrr-green font-medium text-sm flex items-center gap-1 group-hover:underline"
-                      >
-                        Read more
-                        <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-12 text-center">
-              <button className="button-secondary">
-                Load More Articles
-              </button>
-            </div>
+            )}
           </div>
         </section>
       </main>

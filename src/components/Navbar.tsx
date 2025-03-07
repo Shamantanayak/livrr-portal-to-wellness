@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,10 +5,9 @@ import { Link, useLocation } from 'react-router-dom';
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Livrr Tribe', href: '/livrr-tribe' },
-  { name: 'About', href: '/#about' },
   { name: 'Products', href: '/products' },
   { name: 'Survey', href: '/survey' },
-  { name: 'Longi', href: '/longi' },
+  { name: 'Livrr AI', href: '/longi' },
   { name: 'Articles', href: '/articles' },
   { name: 'Join Waitlist', href: '/#waitlist' },
 ];

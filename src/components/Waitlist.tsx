@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { useScrollReveal } from '@/utils/animations';
+import { useToast } from "@/hooks/use-toast";
 
 const Waitlist = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +8,7 @@ const Waitlist = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { toast } = useToast();
 
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollReveal(0.1);
   const { ref: formRef, isVisible: formVisible } = useScrollReveal(0.1);
@@ -28,6 +29,11 @@ const Waitlist = () => {
     setTimeout(() => {
       setSubmitted(true);
       setLoading(false);
+      
+      toast({
+        title: "Success!",
+        description: "You've been added to our waitlist. We'll be in touch soon!",
+      });
     }, 1500);
   };
 
