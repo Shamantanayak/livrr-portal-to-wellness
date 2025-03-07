@@ -12,39 +12,39 @@ const Products = () => {
   
   const productCategories = [
     {
-      title: "Organic Foods",
-      description: "Farm-fresh produce and pantry staples grown without harmful pesticides.",
+      title: "Homeopathy",
+      description: "Natural remedies that stimulate the body's self-healing mechanisms.",
       icon: <Leaf className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
+      image: "/lovable-uploads/2981763c-43ef-4a6e-a4cd-66d408017d3d.png",
       color: "from-green-400 to-emerald-500"
     },
     {
-      title: "Wellness Supplements",
-      description: "Natural supplements to support your health journey and longevity goals.",
+      title: "Unani Medicine",
+      description: "Traditional healing system focusing on balancing vital humors in the body.",
       icon: <Shield className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      color: "from-amber-400 to-orange-500"
+      image: "/lovable-uploads/4d6e81cf-1e5f-4ec4-988e-226c4de5bfdf.png",
+      color: "from-green-600 to-green-800"
     },
     {
-      title: "Fitness Equipment",
-      description: "High-quality tools designed for effective home workouts and mobility.",
+      title: "Naturopathy",
+      description: "Holistic approach using the healing power of nature to maintain health.",
       icon: <Heart className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      color: "from-blue-400 to-indigo-500"
+      image: "/lovable-uploads/b8f56306-fd0c-4b09-a411-4be03a93ced1.png",
+      color: "from-emerald-400 to-green-600"
     },
     {
-      title: "Personal Care",
-      description: "Clean beauty and self-care products free from harmful chemicals.",
+      title: "Ayurveda",
+      description: "Ancient natural healing system focusing on balance between mind, body, and spirit.",
       icon: <Sparkles className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      color: "from-purple-400 to-pink-500"
+      image: "/lovable-uploads/a33006df-c93d-4f96-b838-9fda2abd3926.png",
+      color: "from-amber-400 to-yellow-600"
     },
     {
-      title: "Meal Plans",
-      description: "Ready-to-cook organic meal kits with simple 15-30 minute preparation.",
+      title: "Siddha Medicine",
+      description: "Traditional medical system from South India using herbs, minerals, and animal products.",
       icon: <Badge className="h-8 w-8" />,
-      image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80",
-      color: "from-livrr-green to-livrr-blue"
+      image: "/lovable-uploads/a8b9aae6-dba9-4db5-90d9-f3c83a2f849e.png",
+      color: "from-stone-600 to-stone-800"
     }
   ];
   
@@ -189,9 +189,9 @@ const Products = () => {
         <section id="categories" className="py-20 bg-white">
           <div className="container">
             <div className="text-center mb-16">
-              <h2 className="section-title">Product Categories</h2>
+              <h2 className="section-title">Traditional Medicine Categories</h2>
               <p className="section-subtitle">
-                We offer a comprehensive range of health and wellness products to support your lifestyle
+                We offer a comprehensive range of traditional healing systems to support your health and longevity
               </p>
             </div>
             
@@ -203,7 +203,7 @@ const Products = () => {
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-80`}></div>
+                    <div className={`absolute inset-0 bg-gradient-to-r ${category.color} opacity-30`}></div>
                     <img 
                       src={category.image} 
                       alt={category.title} 
@@ -268,9 +268,9 @@ const Products = () => {
                     
                     <p className="text-livrr-gray-dark text-sm mb-4">{product.description}</p>
                     
-                    <button className="w-full button-primary text-sm py-2">
-                      Coming Soon
-                    </button>
+                    <a href="#waitlist" className="w-full button-primary text-sm py-2 block text-center">
+                      Join Waitlist
+                    </a>
                   </div>
                 </div>
               ))}
@@ -328,9 +328,9 @@ const Products = () => {
                       <span className="ml-2 text-xs text-livrr-gray-dark">{product.rating}/5.0</span>
                     </div>
                     
-                    <button className="mt-4 w-full button-primary text-sm py-2">
-                      Coming Soon
-                    </button>
+                    <a href="#waitlist" className="mt-4 w-full button-primary text-sm py-2 block text-center">
+                      Join Waitlist
+                    </a>
                   </div>
                 </div>
               ))}
