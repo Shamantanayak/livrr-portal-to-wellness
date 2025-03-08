@@ -1,10 +1,9 @@
-
 import React, { useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountains, Sun, ArrowRight } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BlueZone = () => {
@@ -270,7 +269,7 @@ const BlueZone = () => {
           
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <Mountains className="h-12 w-12 text-blue-500 mx-auto mb-6" />
+              <Mountain className="h-12 w-12 text-blue-500 mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Tribe to Make This Zone Yours</h2>
               <p className="text-lg text-gray-700 mb-10">
                 Become part of a community dedicated to incorporating Blue Zone principles into modern life. 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -157,7 +156,6 @@ const Articles = () => {
 
   // Handle article click to open in a new tab
   const handleArticleClick = (url: string, e: React.MouseEvent) => {
-    e.preventDefault();
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -256,9 +254,8 @@ const Articles = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredArticles.map((article) => (
-                  <a 
+                  <div 
                     key={article.id}
-                    href={article.url}
                     onClick={(e) => handleArticleClick(article.url, e)}
                     className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group cursor-pointer"
                   >
@@ -292,7 +289,7 @@ const Articles = () => {
                         </span>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
             )}
