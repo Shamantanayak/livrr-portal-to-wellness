@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal } from '@/utils/animations';
-import { Newspaper, Clock, ArrowRight } from 'lucide-react';
+import { Newspaper, Clock, ArrowRight, Search, Filter } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface Article {
@@ -18,32 +18,33 @@ interface Article {
   url: string;
 }
 
+// Enhanced articles with more focused content on longevity, sages, and traditional practices
 const sampleArticles: Article[] = [
   {
     id: 1,
-    title: "Ancient Wisdom: How Sadhus Achieve Longevity Through Meditation",
-    description: "Exploring the centuries-old practices of sadhus and how their meditation techniques contribute to their extraordinary lifespans.",
-    image: "https://images.unsplash.com/photo-1515444744559-7be63e1600de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    source: "Wellness Today",
+    title: "The Secrets of 100+ Year Old Sages: Ancient Wisdom for Modern Longevity",
+    description: "Discover how Himalayan sages maintain extraordinary health well beyond 100 years through specific meditation techniques and lifestyle practices.",
+    image: "https://images.unsplash.com/photo-1578843493941-c4241c94a3cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Longevity Research Journal",
     date: "2023-05-15",
-    category: "Traditional Practices",
+    category: "Ancient Wisdom",
     url: "#"
   },
   {
     id: 2,
-    title: "The Science Behind Vrushis: Natural Plant-Based Compounds for Longevity",
-    description: "Research reveals how ancient vrushi compounds from specific plants can promote cellular rejuvenation and extend lifespan.",
-    image: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    title: "Vrushis: The Plant Compounds That Extended Lifespans in Traditional Communities",
+    description: "Research into historical texts reveals how specific 'vrushi' compounds found in rare Himalayan plants activate longevity pathways and cellular regeneration.",
+    image: "https://images.unsplash.com/photo-1506365069540-904bcc762636?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
     source: "Health Sciences Journal",
     date: "2023-06-02",
-    category: "Nutrition",
+    category: "Traditional Medicine",
     url: "#"
   },
   {
     id: 3,
-    title: "Modern Medical Study Confirms Benefits of Traditional Fasting Practices",
-    description: "New research from leading universities validates the health benefits of intermittent fasting techniques practiced for centuries.",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    title: "Fasting Rituals of Centenarian Yogis: Scientific Validation of Ancient Practices",
+    description: "Modern scientific analysis confirms how the specific fasting protocols of long-lived yogis activate autophagy and cellular cleansing mechanisms.",
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
     source: "Medical Research Weekly",
     date: "2023-07-10",
     category: "Nutrition",
@@ -51,9 +52,9 @@ const sampleArticles: Article[] = [
   },
   {
     id: 4,
-    title: "Himalayan Herbs: Nature's Secret to Combat Cellular Aging",
-    description: "Exploring the rare herbs used by mountain communities to maintain vitality and cognitive function well into their 90s.",
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    title: "Rare Herbs Used by 100+ Year Old Sadhus for Cognitive Preservation",
+    description: "A rare look into the herbal formulations used by century-old sadhus to maintain sharp cognitive function and neural plasticity throughout their long lives.",
+    image: "https://images.unsplash.com/photo-1590779033100-9f60a05a013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
     source: "Natural Health Magazine",
     date: "2023-08-05",
     category: "Herbal Medicine",
@@ -61,30 +62,55 @@ const sampleArticles: Article[] = [
   },
   {
     id: 5,
-    title: "Cold Exposure Therapy: Ancient Practice Now Backed by Science",
-    description: "How controlled exposure to cold environments can trigger longevity pathways in the human body, a practice used for centuries.",
-    image: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    source: "Biohacking Journal",
+    title: "The Breath Techniques of Mountain Sages: How Specific Pranayama Extends Life",
+    description: "Investigation into the specific breathing protocols practiced by long-lived mountain sages reveals how controlled breath work alters genetic expression and longevity.",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Yogic Science Journal",
     date: "2023-09-12",
-    category: "Lifestyle",
+    category: "Breathwork",
     url: "#"
   },
   {
     id: 6,
-    title: "The Role of Community in Centenarian Villages: Lessons from the Blue Zones",
-    description: "Study of communities with high concentrations of centenarians reveals the importance of social connections to longevity.",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    source: "Social Sciences Review",
+    title: "Living Beyond 100: The Daily Rituals of Himalayan Masters",
+    description: "Researchers document the precise daily routines of Himalayan masters who have lived beyond 100 years, revealing surprising simplicity in their longevity practices.",
+    image: "https://images.unsplash.com/photo-1551847678-53d631835d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Longevity Studies Institute",
     date: "2023-04-25",
-    category: "Community",
+    category: "Lifestyle",
+    url: "#"
+  },
+  {
+    id: 7,
+    title: "The Mind-Body Practices of Ancient Vrushis for Disease Prevention",
+    description: "Ancient vrushi practitioners developed specific mind-body techniques that modern science now confirms can prevent chronic disease and extend healthy lifespan.",
+    image: "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Preventive Medicine Today",
+    date: "2023-03-18",
+    category: "Mind-Body",
+    url: "#"
+  },
+  {
+    id: 8,
+    title: "Sacred Plant Medicine: How Sages Used Rare Botanicals for Longevity",
+    description: "The specific botanical preparations used by centenarian sages contain compounds now being studied by pharmaceutical companies for anti-aging properties.",
+    image: "https://images.unsplash.com/photo-1566221856939-23e9278ad39a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Ethnobotany Research",
+    date: "2023-02-05",
+    category: "Plant Medicine",
     url: "#"
   }
 ];
+
+// List of all categories for filtering
+const allCategories = Array.from(new Set(sampleArticles.map(article => article.category)));
 
 const Articles = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const { toast } = useToast();
   
   useEffect(() => {
@@ -98,10 +124,10 @@ const Articles = () => {
           setIsLoading(false);
           
           toast({
-            title: "Articles Updated",
-            description: "Latest health and longevity articles loaded.",
+            title: "Ancient Wisdom Articles",
+            description: "Discover the secrets of those who have lived beyond 100 years.",
           });
-        }, 1500);
+        }, 1000);
       } catch (error) {
         console.error("Error fetching articles:", error);
         setIsLoading(false);
@@ -115,6 +141,14 @@ const Articles = () => {
 
     fetchArticles();
   }, [toast]);
+
+  // Filter articles based on search term and category
+  const filteredArticles = articles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          article.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === '' || article.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -136,16 +170,15 @@ const Articles = () => {
           }`}>
             <div className="text-center max-w-3xl mx-auto">
               <span className="bg-livrr-green/10 text-livrr-green-dark px-4 py-1 rounded-full text-sm font-medium mb-4 inline-block">
-                Join Livrr thrive longevity
+                Ancient Wisdom For Modern Life
               </span>
               
               <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-livrr-green-dark">
-                Longevity & Wellness Articles
+                Secrets of 100+ Year Old Sages
               </h1>
               
               <p className="text-lg text-livrr-gray-dark mb-6">
-                Discover ancient wisdom and modern research on extending human lifespan naturally.
-                Learn from those who have lived beyond 100 years through traditional practices.
+                Explore the ancient practices, herbal remedies, and lifestyle wisdom of those who have lived beyond a century through traditional wisdom and Vrushi science.
               </p>
             </div>
           </div>
@@ -153,12 +186,34 @@ const Articles = () => {
         
         <section className="py-12 bg-white">
           <div className="container">
-            <div className="mb-8 flex justify-between items-center">
-              <h2 className="text-2xl font-display font-bold text-livrr-green-dark">Latest Articles</h2>
+            <div className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+              <h2 className="text-2xl font-display font-bold text-livrr-green-dark">Longevity Articles</h2>
               
-              <div className="flex items-center gap-2 text-livrr-green">
-                <Newspaper className="h-5 w-5" />
-                <span className="text-sm font-medium">Updated Daily</span>
+              <div className="flex w-full md:w-auto flex-col sm:flex-row items-center gap-4">
+                <div className="relative w-full sm:w-auto">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 pr-4 py-2 border border-livrr-green/20 rounded-full w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-livrr-green/30"
+                  />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-livrr-gray" />
+                </div>
+                
+                <div className="relative w-full sm:w-auto">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="pl-10 pr-4 py-2 border border-livrr-green/20 rounded-full w-full sm:w-48 focus:outline-none focus:ring-2 focus:ring-livrr-green/30 appearance-none"
+                  >
+                    <option value="">All Categories</option>
+                    {allCategories.map(category => (
+                      <option key={category} value={category}>{category}</option>
+                    ))}
+                  </select>
+                  <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-livrr-gray" />
+                </div>
               </div>
             </div>
             
@@ -175,9 +230,26 @@ const Articles = () => {
                   </div>
                 ))}
               </div>
+            ) : filteredArticles.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="text-livrr-gray mb-4">
+                  <Newspaper className="h-16 w-16 mx-auto opacity-30" />
+                </div>
+                <h3 className="text-xl font-semibold text-livrr-green-dark mb-2">No Articles Found</h3>
+                <p className="text-livrr-gray-dark mb-6">Try adjusting your search or filter criteria.</p>
+                <button 
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('');
+                  }}
+                  className="text-livrr-green hover:underline flex items-center gap-1 mx-auto"
+                >
+                  Clear all filters
+                </button>
+              </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {articles.map((article) => (
+                {filteredArticles.map((article) => (
                   <a 
                     key={article.id}
                     href={article.url}

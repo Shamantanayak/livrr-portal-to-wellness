@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal, usePulseAnimation } from '@/utils/animations';
-import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart } from 'lucide-react';
+import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart, Twitter, Instagram, Facebook, Hash } from 'lucide-react';
 import WaveDivider from '@/components/ui/WaveDivider';
 import { useToast } from "@/hooks/use-toast";
 
@@ -20,6 +20,23 @@ const LivrrTribe = () => {
   const [age, setAge] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(true);
+  
+  // Social media handles
+  const socialMedia = [
+    { platform: 'Instagram', handle: '@livrrtribe', icon: <Instagram className="h-5 w-5" />, url: 'https://instagram.com/' },
+    { platform: 'Twitter', handle: '@livrrtribe', icon: <Twitter className="h-5 w-5" />, url: 'https://twitter.com/' },
+    { platform: 'Facebook', handle: 'LivrrTribe', icon: <Facebook className="h-5 w-5" />, url: 'https://facebook.com/' },
+  ];
+  
+  // Popular hashtags
+  const hashtags = [
+    '#LivrrTribe', 
+    '#LiveBeyond100', 
+    '#AncientWisdom', 
+    '#ModernLongevity', 
+    '#Vrushis',
+    '#NaturalImmunity'
+  ];
   
   const tribeStatistics = [
     { value: "25,000+", label: "Tribe Members", icon: <Users className="h-6 w-6" /> },
@@ -118,10 +135,40 @@ const LivrrTribe = () => {
                 Our tribe members are resistant to different infections and lead disease-free lives despite our toxic environment.
               </p>
               
-              <div className="bg-livrr-beige/30 p-6 rounded-xl mb-10">
+              <div className="bg-livrr-beige/30 p-6 rounded-xl mb-6">
                 <p className="text-livrr-green-dark font-medium text-lg">
                   "Join the hands with us in our movement to extend human lifespan from 70 to 90+ years."
                 </p>
+              </div>
+              
+              {/* Social Media Links */}
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {socialMedia.map((social) => (
+                  <a 
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-livrr-green/20 rounded-full text-sm text-livrr-green-dark transition-all hover:bg-livrr-green/10 hover:scale-105"
+                  >
+                    {social.icon}
+                    <span>{social.handle}</span>
+                  </a>
+                ))}
+              </div>
+              
+              {/* Hashtag Section */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {hashtags.map((tag) => (
+                  <span 
+                    key={tag}
+                    className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-livrr-green/10 to-livrr-blue/10 rounded-full text-sm text-livrr-green-dark font-medium animate-pulse"
+                    style={{animationDuration: `${3 + Math.random() * 2}s`}}
+                  >
+                    <Hash className="h-3 w-3" />
+                    {tag.substring(1)}
+                  </span>
+                ))}
               </div>
               
               <div className="flex justify-center gap-4">
@@ -171,6 +218,86 @@ const LivrrTribe = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Movement Showcase */}
+        <section className="py-16 bg-livrr-green/5">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="section-title">Join The Movement</h2>
+              <p className="section-subtitle max-w-3xl mx-auto">
+                Our global movement is changing how people think about aging. Share your journey with 
+                <span className="font-semibold text-livrr-green-dark"> #LivrrTribe</span> and inspire others.
+              </p>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-livrr-green/10 to-livrr-blue/10 p-8 md:p-12">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="md:w-1/2">
+                  <h3 className="text-2xl font-display font-bold text-livrr-green-dark mb-4">Share Your Story</h3>
+                  <p className="text-livrr-gray-dark mb-6">
+                    Post your health transformation journey, favorite longevity practices, or ancestral wisdom on social media using our hashtags.
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {hashtags.map((tag) => (
+                      <span 
+                        key={tag}
+                        className="bg-white/70 px-3 py-1 rounded-full text-sm text-livrr-green-dark font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    {socialMedia.map((social) => (
+                      <a 
+                        key={social.platform}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-livrr-green transition-transform hover:scale-110"
+                      >
+                        {social.icon}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="md:w-1/2 grid grid-cols-2 gap-4">
+                  <div className="aspect-square rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" 
+                      alt="Community member" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="aspect-square rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" 
+                      alt="Community member" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="aspect-square rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1579191721855-0ef14eaec98d" 
+                      alt="Community member" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="aspect-square rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+                      alt="Community member" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
