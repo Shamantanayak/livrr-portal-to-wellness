@@ -18,6 +18,69 @@ interface Article {
   url: string;
 }
 
+const sampleArticles: Article[] = [
+  {
+    id: 1,
+    title: "Ancient Wisdom: How Sadhus Achieve Longevity Through Meditation",
+    description: "Exploring the centuries-old practices of sadhus and how their meditation techniques contribute to their extraordinary lifespans.",
+    image: "https://images.unsplash.com/photo-1515444744559-7be63e1600de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Wellness Today",
+    date: "2023-05-15",
+    category: "Traditional Practices",
+    url: "#"
+  },
+  {
+    id: 2,
+    title: "The Science Behind Vrushis: Natural Plant-Based Compounds for Longevity",
+    description: "Research reveals how ancient vrushi compounds from specific plants can promote cellular rejuvenation and extend lifespan.",
+    image: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Health Sciences Journal",
+    date: "2023-06-02",
+    category: "Nutrition",
+    url: "#"
+  },
+  {
+    id: 3,
+    title: "Modern Medical Study Confirms Benefits of Traditional Fasting Practices",
+    description: "New research from leading universities validates the health benefits of intermittent fasting techniques practiced for centuries.",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Medical Research Weekly",
+    date: "2023-07-10",
+    category: "Nutrition",
+    url: "#"
+  },
+  {
+    id: 4,
+    title: "Himalayan Herbs: Nature's Secret to Combat Cellular Aging",
+    description: "Exploring the rare herbs used by mountain communities to maintain vitality and cognitive function well into their 90s.",
+    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Natural Health Magazine",
+    date: "2023-08-05",
+    category: "Herbal Medicine",
+    url: "#"
+  },
+  {
+    id: 5,
+    title: "Cold Exposure Therapy: Ancient Practice Now Backed by Science",
+    description: "How controlled exposure to cold environments can trigger longevity pathways in the human body, a practice used for centuries.",
+    image: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Biohacking Journal",
+    date: "2023-09-12",
+    category: "Lifestyle",
+    url: "#"
+  },
+  {
+    id: 6,
+    title: "The Role of Community in Centenarian Villages: Lessons from the Blue Zones",
+    description: "Study of communities with high concentrations of centenarians reveals the importance of social connections to longevity.",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    source: "Social Sciences Review",
+    date: "2023-04-25",
+    category: "Community",
+    url: "#"
+  }
+];
+
 const Articles = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
   const [articles, setArticles] = useState<Article[]>([]);
@@ -25,76 +88,12 @@ const Articles = () => {
   const { toast } = useToast();
   
   useEffect(() => {
-    // Simulating fetching articles from an API
+    // Fetch articles - simulated API call
     const fetchArticles = async () => {
       setIsLoading(true);
       try {
-        // This would normally be a fetch to a real API
-        // For now, we're using sample data
+        // Simulate API delay
         setTimeout(() => {
-          const sampleArticles: Article[] = [
-            {
-              id: 1,
-              title: "Ancient Wisdom: How Sadhus Achieve Longevity Through Meditation",
-              description: "Exploring the centuries-old practices of sadhus and how their meditation techniques contribute to their extraordinary lifespans.",
-              image: "https://images.unsplash.com/photo-1515444744559-7be63e1600de",
-              source: "Wellness Today",
-              date: "2023-05-15",
-              category: "Traditional Practices",
-              url: "#"
-            },
-            {
-              id: 2,
-              title: "The Science Behind Vrushis: Natural Plant-Based Compounds for Longevity",
-              description: "Research reveals how ancient vrushi compounds from specific plants can promote cellular rejuvenation and extend lifespan.",
-              image: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f",
-              source: "Health Sciences Journal",
-              date: "2023-06-02",
-              category: "Nutrition",
-              url: "#"
-            },
-            {
-              id: 3,
-              title: "Modern Medical Study Confirms Benefits of Traditional Fasting Practices",
-              description: "New research from leading universities validates the health benefits of intermittent fasting techniques practiced for centuries.",
-              image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
-              source: "Medical Research Weekly",
-              date: "2023-07-10",
-              category: "Nutrition",
-              url: "#"
-            },
-            {
-              id: 4,
-              title: "Himalayan Herbs: Nature's Secret to Combat Cellular Aging",
-              description: "Exploring the rare herbs used by mountain communities to maintain vitality and cognitive function well into their 90s.",
-              image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97",
-              source: "Natural Health Magazine",
-              date: "2023-08-05",
-              category: "Herbal Medicine",
-              url: "#"
-            },
-            {
-              id: 5,
-              title: "Cold Exposure Therapy: Ancient Practice Now Backed by Science",
-              description: "How controlled exposure to cold environments can trigger longevity pathways in the human body, a practice used for centuries.",
-              image: "https://images.unsplash.com/photo-1510925758641-869d353cecc7",
-              source: "Biohacking Journal",
-              date: "2023-09-12",
-              category: "Lifestyle",
-              url: "#"
-            },
-            {
-              id: 6,
-              title: "The Role of Community in Centenarian Villages: Lessons from the Blue Zones",
-              description: "Study of communities with high concentrations of centenarians reveals the importance of social connections to longevity.",
-              image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac",
-              source: "Social Sciences Review",
-              date: "2023-04-25",
-              category: "Community",
-              url: "#"
-            }
-          ];
-          
           setArticles(sampleArticles);
           setIsLoading(false);
           
@@ -189,6 +188,9 @@ const Articles = () => {
                         src={article.image}
                         alt={article.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80";
+                        }}
                       />
                     </div>
                     <div className="p-6">

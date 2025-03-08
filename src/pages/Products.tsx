@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaveDivider from '@/components/ui/WaveDivider';
-import CustomCursor from '@/components/CustomCursor';
 import ProductHeader from '@/components/products/ProductHeader';
 import ProductCategories from '@/components/products/ProductCategories';
 import DietProducts from '@/components/products/DietProducts';
@@ -43,7 +42,6 @@ const Products = () => {
   
   return (
     <div className="bg-gradient-to-b from-white to-livrr-beige/10 min-h-screen">
-      <CustomCursor />
       <Navbar />
       
       <main className="pt-24">

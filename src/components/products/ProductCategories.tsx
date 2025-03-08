@@ -1,41 +1,42 @@
 
 import React from 'react';
 import { ArrowRight, Leaf, Shield, Heart, Sparkles, Badge } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const productCategories = [
   {
     title: "Homeopathy",
     description: "Natural remedies that stimulate the body's self-healing mechanisms for improved wellness and vitality.",
     icon: <Leaf className="h-8 w-8" />,
-    image: "/assets/products/homeopathy.jpg",
+    image: "/lovable-uploads/6d1e0a2f-b6f5-4575-ab34-cf6b7d7485d7.png",
     color: "from-green-400 to-emerald-500"
   },
   {
     title: "Unani Medicine",
     description: "Traditional holistic healing system focusing on balancing vital humors in the body for optimal health.",
     icon: <Shield className="h-8 w-8" />,
-    image: "/assets/products/unani.jpg",
+    image: "/lovable-uploads/ffde7008-ba37-42d6-8b1c-82590d605e0f.png",
     color: "from-green-600 to-green-800"
   },
   {
     title: "Naturopathy",
     description: "Holistic approach using the natural healing power of nature to maintain health and overall wellbeing.",
     icon: <Heart className="h-8 w-8" />,
-    image: "/assets/products/naturopathy.jpg",
+    image: "/lovable-uploads/b13c76d6-d0a5-4749-a854-b73df29be6c4.png", 
     color: "from-emerald-400 to-green-600"
   },
   {
     title: "Ayurveda",
     description: "Ancient natural healing system focusing on perfect balance between mind, body, and spirit for longevity.",
     icon: <Sparkles className="h-8 w-8" />,
-    image: "/assets/products/ayurveda.jpg",
+    image: "/lovable-uploads/4d6e81cf-1e5f-4ec4-988e-226c4de5bfdf.png",
     color: "from-amber-400 to-yellow-600"
   },
   {
     title: "Siddha Medicine",
     description: "Traditional South Indian medical system using herbs, minerals, and animal products for holistic healing.",
     icon: <Badge className="h-8 w-8" />,
-    image: "/assets/products/siddha.jpg",
+    image: "/lovable-uploads/b8f56306-fd0c-4b09-a411-4be03a93ced1.png",
     color: "from-stone-600 to-stone-800"
   }
 ];
@@ -77,10 +78,10 @@ const ProductCategories = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-livrr-green-dark mb-2">{category.title}</h3>
                 <p className="text-livrr-gray-dark mb-4">{category.description}</p>
-                <a href="#waitlist" className="text-livrr-green font-medium flex items-center gap-2 group-hover:underline">
+                <Link to="/#waitlist" className="text-livrr-green font-medium flex items-center gap-2 group-hover:underline">
                   Browse Products
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}
