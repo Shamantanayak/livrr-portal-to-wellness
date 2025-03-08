@@ -1,0 +1,297 @@
+
+import React, { useEffect, useRef } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { useScrollReveal } from '@/utils/animations';
+import { useToast } from '@/hooks/use-toast';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountains, Sun, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const BlueZone = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const { toast } = useToast();
+  
+  useEffect(() => {
+    toast({
+      title: "Welcome to the Blue Zone",
+      description: "Discover the secrets of longevity from the world's longest-living communities.",
+    });
+  }, [toast]);
+
+  const handlePlayAudio = (audioId: string) => {
+    const audioElements = document.querySelectorAll('audio');
+    audioElements.forEach(audio => {
+      if (audio.id !== audioId) {
+        audio.pause();
+      }
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100/30">
+      <Navbar />
+      
+      <main className="pt-24 pb-20">
+        <section
+          ref={headerRef}
+          className="relative overflow-hidden py-20"
+        >
+          <div 
+            className="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1559827291-72ee739d0d9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] 
+            bg-cover bg-center opacity-20"
+          />
+          
+          <div className={`container transition-all duration-700 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            <div className="text-center max-w-3xl mx-auto">
+              <span className="bg-blue-500/10 text-blue-600 px-4 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+                Living Longer, Living Better
+              </span>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-blue-800">
+                The Blue Zone Experience
+              </h1>
+              
+              <p className="text-lg text-gray-700 mb-6">
+                Explore the lifestyles, practices, and wisdom of communities where people routinely live beyond 100 years 
+                with exceptional health and vitality.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4 mb-10">
+                <button 
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors flex items-center gap-2"
+                  onClick={() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <Video className="h-5 w-5" />
+                  <span>Watch Videos</span>
+                </button>
+                
+                <button 
+                  className="px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full font-medium transition-colors flex items-center gap-2"
+                  onClick={() => document.getElementById('audios')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <AudioLines className="h-5 w-5" />
+                  <span>Listen to Stories</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section className="py-20 bg-white">
+          <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Why Blue Zones Matter</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">Blue Zones are regions where people live significantly longer and healthier lives. By studying these areas, we can uncover the secrets to longevity.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                  <Heart className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Natural Movement</h3>
+                <p className="text-gray-600">People in Blue Zones move naturally throughout their day, not relying on gyms but integrating physical activity into daily life.</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                  <TreeDeciduous className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Plant-Rich Diet</h3>
+                <p className="text-gray-600">Centenarians in Blue Zones eat a predominantly plant-based diet with minimal processed foods and moderate caloric intake.</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                  <Users className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Strong Communities</h3>
+                <p className="text-gray-600">Strong social connections and belonging to faith-based communities are common factors among the world's longest-lived people.</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                  <Sun className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Sense of Purpose</h3>
+                <p className="text-gray-600">People in Blue Zones have a clear sense of purpose that gives meaning to their lives, often continuing to contribute well into their 90s and 100s.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section id="videos" className="py-20 bg-gradient-to-b from-blue-50 to-white">
+          <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Videos</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">Watch and learn from the lifestyles of the world's longest-living communities.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+                <div className="aspect-video bg-gray-200 relative">
+                  <iframe 
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/ff40YiMmVkU" 
+                    title="Blue Zone Lifestyle"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-blue-800 mb-2 group-hover:text-blue-600 transition">Secrets of the Blue Zones</h3>
+                  <p className="text-gray-600 mb-4">Discover the 9 common diet and lifestyle habits that keep the world's centenarians healthier for longer.</p>
+                </div>
+              </div>
+              
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+                <div className="aspect-video bg-gray-200 relative">
+                  <iframe 
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/4rOV9qbLu7Y" 
+                    title="Blue Zone Centenarians" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-blue-800 mb-2 group-hover:text-blue-600 transition">Living to 100+</h3>
+                  <p className="text-gray-600 mb-4">Explore how centenarians in the Blue Zones maintain their vitality and health through simple daily practices.</p>
+                </div>
+              </div>
+              
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+                <div className="aspect-video bg-gray-200 relative">
+                  <iframe 
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/B9BNnYZPmxs" 
+                    title="Blue Zone Diet" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-blue-800 mb-2 group-hover:text-blue-600 transition">The Blue Zone Diet</h3>
+                  <p className="text-gray-600 mb-4">Learn about the nutritional principles that contribute to longevity in the world's Blue Zones.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section id="audios" className="py-20 bg-white">
+          <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Audio Stories</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">Listen to the wisdom and experiences of centenarians and longevity experts.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+                <h3 className="text-xl font-semibold text-blue-800 mb-4">Wisdom of Centenarians</h3>
+                <p className="text-gray-600 mb-4">Listen to the stories and advice from people who have lived beyond 100 years.</p>
+                <div className="mb-4">
+                  <audio 
+                    id="audio1" 
+                    ref={audioRef}
+                    className="w-full" 
+                    controls
+                    onPlay={() => handlePlayAudio('audio1')}
+                  >
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+                <p className="text-sm text-gray-500 italic">Sample audio - replace with actual centenarian interviews</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+                <h3 className="text-xl font-semibold text-blue-800 mb-4">Expert Insights on Blue Zones</h3>
+                <p className="text-gray-600 mb-4">Hear from researchers and experts who study the Blue Zones phenomenon.</p>
+                <div className="mb-4">
+                  <audio 
+                    id="audio2" 
+                    className="w-full" 
+                    controls
+                    onPlay={() => handlePlayAudio('audio2')}
+                  >
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+                <p className="text-sm text-gray-500 italic">Sample audio - replace with actual expert interviews</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+                <h3 className="text-xl font-semibold text-blue-800 mb-4">Blue Zone Meditation</h3>
+                <p className="text-gray-600 mb-4">A guided meditation inspired by the stress-reduction practices found in Blue Zones.</p>
+                <div className="mb-4">
+                  <audio 
+                    id="audio3" 
+                    className="w-full" 
+                    controls
+                    onPlay={() => handlePlayAudio('audio3')}
+                  >
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+                <p className="text-sm text-gray-500 italic">Sample audio - replace with actual meditation audio</p>
+              </div>
+              
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+                <h3 className="text-xl font-semibold text-blue-800 mb-4">Traditional Blue Zone Music</h3>
+                <p className="text-gray-600 mb-4">Traditional music from regions known for their longevity and healthy lifestyles.</p>
+                <div className="mb-4">
+                  <audio 
+                    id="audio4" 
+                    className="w-full" 
+                    controls
+                    onPlay={() => handlePlayAudio('audio4')}
+                  >
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+                <p className="text-sm text-gray-500 italic">Sample audio - replace with authentic traditional music</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section className="py-20 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent"></div>
+          </div>
+          
+          <div className="container relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <Mountains className="h-12 w-12 text-blue-500 mx-auto mb-6" />
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Tribe to Make This Zone Yours</h2>
+              <p className="text-lg text-gray-700 mb-10">
+                Become part of a community dedicated to incorporating Blue Zone principles into modern life. 
+                Together, we can create our own Blue Zone and live longer, healthier, and more fulfilling lives.
+              </p>
+              
+              <Link 
+                to="/livrr-tribe" 
+                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors"
+              >
+                <span>Join the Livrr Tribe</span>
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default BlueZone;

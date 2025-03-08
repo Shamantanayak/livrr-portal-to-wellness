@@ -9,7 +9,7 @@ const navLinks = [
   { name: 'Survey', href: '/survey' },
   { name: 'Livrr AI', href: '/longi' },
   { name: 'Articles', href: '/articles' },
-  { name: 'Join Waitlist', href: '/#waitlist' },
+  { name: 'Blue Zone', href: '/blue-zone' },
 ];
 
 const Navbar = () => {

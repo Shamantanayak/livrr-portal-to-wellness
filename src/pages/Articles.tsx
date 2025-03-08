@@ -28,7 +28,7 @@ const sampleArticles: Article[] = [
     source: "Longevity Research Journal",
     date: "2023-05-15",
     category: "Ancient Wisdom",
-    url: "#"
+    url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6125071/"
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const sampleArticles: Article[] = [
     source: "Health Sciences Journal",
     date: "2023-06-02",
     category: "Traditional Medicine",
-    url: "#"
+    url: "https://www.sciencedirect.com/science/article/abs/pii/S0944711318300151"
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ const sampleArticles: Article[] = [
     source: "Medical Research Weekly",
     date: "2023-07-10",
     category: "Nutrition",
-    url: "#"
+    url: "https://www.nejm.org/doi/full/10.1056/NEJMra1905136"
   },
   {
     id: 4,
@@ -58,7 +58,7 @@ const sampleArticles: Article[] = [
     source: "Natural Health Magazine",
     date: "2023-08-05",
     category: "Herbal Medicine",
-    url: "#"
+    url: "https://www.sciencedirect.com/science/article/abs/pii/S0378874117321955"
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const sampleArticles: Article[] = [
     source: "Yogic Science Journal",
     date: "2023-09-12",
     category: "Breathwork",
-    url: "#"
+    url: "https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01827/full"
   },
   {
     id: 6,
@@ -78,7 +78,7 @@ const sampleArticles: Article[] = [
     source: "Longevity Studies Institute",
     date: "2023-04-25",
     category: "Lifestyle",
-    url: "#"
+    url: "https://www.bluezones.com/2018/06/science-says-these-10-things-may-help-you-live-to-be-100/"
   },
   {
     id: 7,
@@ -88,7 +88,7 @@ const sampleArticles: Article[] = [
     source: "Preventive Medicine Today",
     date: "2023-03-18",
     category: "Mind-Body",
-    url: "#"
+    url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6047893/"
   },
   {
     id: 8,
@@ -98,7 +98,7 @@ const sampleArticles: Article[] = [
     source: "Ethnobotany Research",
     date: "2023-02-05",
     category: "Plant Medicine",
-    url: "#"
+    url: "https://www.sciencedirect.com/science/article/abs/pii/S0378874119315569"
   }
 ];
 
@@ -153,6 +153,12 @@ const Articles = () => {
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
+  // Handle article click to open in a new tab
+  const handleArticleClick = (url: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -253,7 +259,8 @@ const Articles = () => {
                   <a 
                     key={article.id}
                     href={article.url}
-                    className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group"
+                    onClick={(e) => handleArticleClick(article.url, e)}
+                    className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group cursor-pointer"
                   >
                     <div className="aspect-video w-full overflow-hidden">
                       <img

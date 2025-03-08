@@ -10,6 +10,7 @@ import Survey from "./pages/Survey";
 import Longi from "./pages/Longi";
 import LivrrTribe from "./pages/LivrrTribe";
 import Articles from "./pages/Articles";
+import BlueZone from "./pages/BlueZone";
 import NotFound from "./pages/NotFound";
 import { AppProvider } from "./context/AppContext";
 import CustomCursor from "./components/CustomCursor";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/longi" element={<Longi />} />
             <Route path="/livrr-tribe" element={<LivrrTribe />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/blue-zone" element={<BlueZone />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
