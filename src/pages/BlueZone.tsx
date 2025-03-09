@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Wave, Waves, CloudSun } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BlueZone = () => {
@@ -57,6 +57,11 @@ const BlueZone = () => {
       <div className="absolute top-[65%] left-0 w-full opacity-5 text-blue-600 rotate-180">
         <Waves className="w-full h-20" />
       </div>
+      
+      {/* Additional pulsing circles for immersive effect */}
+      <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-blue-400/10 rounded-full blur-xl animate-pulse-slow floating-element"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl animate-pulse-slow floating-element" style={{animationDelay: '1s'}}></div>
+      <div className="absolute top-1/2 right-1/5 w-24 h-24 bg-cyan-400/10 rounded-full blur-lg animate-pulse-slow floating-element" style={{animationDelay: '2s'}}></div>
       
       <Navbar />
       
@@ -318,22 +323,22 @@ const BlueZone = () => {
         
         <section className="py-20 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-15"></div>
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-15"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent"></div>
           </div>
           
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <Mountain className="h-12 w-12 text-blue-500 mx-auto mb-6" />
+              <Mountain className="h-12 w-12 text-blue-500 mx-auto mb-6 animate-bounce-slow" />
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Waitlist to Experience Blue Zone</h2>
-              <p className="text-lg text-gray-700 mb-10">
+              <p className="text-lg text-gray-700 mb-10 leading-relaxed">
                 Become part of a community dedicated to incorporating Blue Zone principles into modern life. 
                 Join our waitlist today to be among the first to access our exclusive Blue Zone experiences and resources.
               </p>
               
               <Link 
                 to="/#waitlist" 
-                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-300/30"
+                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-300/30 hover:scale-105 transform duration-300"
               >
                 <span>Join the Waitlist</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
