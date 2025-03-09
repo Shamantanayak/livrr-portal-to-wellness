@@ -17,13 +17,13 @@ interface Article {
   url: string;
 }
 
-// Enhanced articles with more focused content on longevity, sages, and traditional practices
+// Updated articles with reliable image sources
 const sampleArticles: Article[] = [
   {
     id: 1,
     title: "The Secrets of 100+ Year Old Sages: Ancient Wisdom for Modern Longevity",
     description: "Discover how Himalayan sages maintain extraordinary health well beyond 100 years through specific meditation techniques and lifestyle practices.",
-    image: "https://images.pexels.com/photos/1456951/pexels-photo-1456951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/4101555/pexels-photo-4101555.jpeg",
     source: "Longevity Research Journal",
     date: "2023-05-15",
     category: "Ancient Wisdom",
@@ -33,7 +33,7 @@ const sampleArticles: Article[] = [
     id: 2,
     title: "Vrushis: The Plant Compounds That Extended Lifespans in Traditional Communities",
     description: "Research into historical texts reveals how specific 'vrushi' compounds found in rare Himalayan plants activate longevity pathways and cellular regeneration.",
-    image: "https://images.pexels.com/photos/4100130/pexels-photo-4100130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/2802549/pexels-photo-2802549.jpeg",
     source: "Health Sciences Journal",
     date: "2023-06-02",
     category: "Traditional Medicine",
@@ -43,7 +43,7 @@ const sampleArticles: Article[] = [
     id: 3,
     title: "Fasting Rituals of Centenarian Yogis: Scientific Validation of Ancient Practices",
     description: "Modern scientific analysis confirms how the specific fasting protocols of long-lived yogis activate autophagy and cellular cleansing mechanisms.",
-    image: "https://images.pexels.com/photos/8436586/pexels-photo-8436586.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/775417/pexels-photo-775417.jpeg",
     source: "Medical Research Weekly",
     date: "2023-07-10",
     category: "Nutrition",
@@ -53,7 +53,7 @@ const sampleArticles: Article[] = [
     id: 4,
     title: "Rare Herbs Used by 100+ Year Old Sadhus for Cognitive Preservation",
     description: "A rare look into the herbal formulations used by century-old sadhus to maintain sharp cognitive function and neural plasticity throughout their long lives.",
-    image: "https://images.pexels.com/photos/6157224/pexels-photo-6157224.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/970089/pexels-photo-970089.jpeg",
     source: "Natural Health Magazine",
     date: "2023-08-05",
     category: "Herbal Medicine",
@@ -63,7 +63,7 @@ const sampleArticles: Article[] = [
     id: 5,
     title: "The Breath Techniques of Mountain Sages: How Specific Pranayama Extends Life",
     description: "Investigation into the specific breathing protocols practiced by long-lived mountain sages reveals how controlled breath work alters genetic expression and longevity.",
-    image: "https://images.pexels.com/photos/8436677/pexels-photo-8436677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/3759660/pexels-photo-3759660.jpeg",
     source: "Yogic Science Journal",
     date: "2023-09-12",
     category: "Breathwork",
@@ -73,7 +73,7 @@ const sampleArticles: Article[] = [
     id: 6,
     title: "Living Beyond 100: The Daily Rituals of Himalayan Masters",
     description: "Researchers document the precise daily routines of Himalayan masters who have lived beyond 100 years, revealing surprising simplicity in their longevity practices.",
-    image: "https://images.pexels.com/photos/957957/pexels-photo-957957.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/4386342/pexels-photo-4386342.jpeg",
     source: "Longevity Studies Institute",
     date: "2023-04-25",
     category: "Lifestyle",
@@ -83,7 +83,7 @@ const sampleArticles: Article[] = [
     id: 7,
     title: "The Mind-Body Practices of Ancient Vrushis for Disease Prevention",
     description: "Ancient vrushi practitioners developed specific mind-body techniques that modern science now confirms can prevent chronic disease and extend healthy lifespan.",
-    image: "https://images.pexels.com/photos/8436714/pexels-photo-8436714.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/8436447/pexels-photo-8436447.jpeg",
     source: "Preventive Medicine Today",
     date: "2023-03-18",
     category: "Mind-Body",
@@ -93,7 +93,7 @@ const sampleArticles: Article[] = [
     id: 8,
     title: "Sacred Plant Medicine: How Sages Used Rare Botanicals for Longevity",
     description: "The specific botanical preparations used by centenarian sages contain compounds now being studied by pharmaceutical companies for anti-aging properties.",
-    image: "https://images.pexels.com/photos/6942029/pexels-photo-6942029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    image: "https://images.pexels.com/photos/3056056/pexels-photo-3056056.jpeg",
     source: "Ethnobotany Research",
     date: "2023-02-05",
     category: "Plant Medicine",
@@ -114,7 +114,7 @@ const Articles = () => {
   const { toast } = useToast();
   
   useEffect(() => {
-    // Fetch articles - simulated API call
+    // Fetch articles - simulated API call with more reliable images
     const fetchArticles = async () => {
       setIsLoading(true);
       try {
@@ -127,7 +127,7 @@ const Articles = () => {
             title: "Ancient Wisdom Articles",
             description: "Discover the secrets of those who have lived beyond 100 years.",
           });
-        }, 1000);
+        }, 800);
       } catch (error) {
         console.error("Error fetching articles:", error);
         setIsLoading(false);
@@ -160,11 +160,20 @@ const Articles = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  // Handle image error
+  // Handle image error with robust fallback
   const handleImageError = (id: number) => {
     console.log(`Image error for article ${id}`);
     setImgErrors(prev => ({...prev, [id]: true}));
   };
+
+  // Preload images
+  useEffect(() => {
+    articles.forEach(article => {
+      const img = new Image();
+      img.src = article.image;
+      img.onerror = () => setImgErrors(prev => ({...prev, [article.id]: true}));
+    });
+  }, [articles]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-livrr-beige/10">
@@ -282,12 +291,16 @@ const Articles = () => {
                           onError={() => handleImageError(article.id)}
                         />
                       )}
+
+                      {/* Category badge overlay */}
+                      <div className="absolute top-3 left-3">
+                        <span className="text-xs font-medium bg-white/90 text-livrr-green-dark px-2 py-1 rounded-full shadow-sm">
+                          {article.category}
+                        </span>
+                      </div>
                     </div>
                     <div className="p-6">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs font-medium bg-livrr-green/10 text-livrr-green-dark px-2 py-1 rounded-full">
-                          {article.category}
-                        </span>
                         <div className="flex items-center text-livrr-gray text-xs">
                           <Clock className="h-3 w-3 mr-1" />
                           {formatDate(article.date)}

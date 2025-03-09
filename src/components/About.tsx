@@ -3,26 +3,26 @@ import React, { useRef, useEffect } from 'react';
 import { useScrollReveal } from '@/utils/animations';
 import WaveDivider from './ui/WaveDivider';
 
-const stats = [
+const impactStats = [
   {
-    value: "$231.52B",
-    label: "Global Organic Food Market",
-    description: "The organic food and beverages market valuation in 2023."
+    value: "5.3 Years",
+    label: "Air Pollution Impact",
+    description: "Air pollution can reduce life expectancy by approximately 5.3 years in India, with up to 11.9 years lost in highly polluted cities like Delhi."
   },
   {
-    value: "$554.04B",
-    label: "Health & Wellness Market",
-    description: "Current market size of the global health and wellness industry."
+    value: "95%",
+    label: "Blue Zone Diet",
+    description: "People in Blue Zones primarily eat a 95% plant-based diet, rich in antioxidants and fiber, contributing to longevity."
   },
   {
-    value: "$96.7B",
-    label: "Global Fitness Market",
-    description: "Current valuation with projected growth to $434.74B by 2028."
+    value: "3 in 4",
+    label: "Diabetes Distribution",
+    description: "3 in 4 people with diabetes live in low- and middle-income countries, highlighting health disparities."
   },
   {
-    value: "7.2%",
-    label: "Annual Growth Rate",
-    description: "The compound annual growth rate (CAGR) for the fitness industry."
+    value: "13.9%",
+    label: "Mental Health Prevalence",
+    description: "13.9% of the world's population experienced mental disorders in 2021, affecting overall wellbeing."
   },
 ];
 
@@ -140,17 +140,17 @@ const About = () => {
           </div>
         </div>
 
-        {/* Market Statistics */}
+        {/* Livrr Built On These - Health Impact Statistics */}
         <div 
           ref={statsRef as React.RefObject<HTMLDivElement>}
           className="mb-20"
         >
           <h3 className="text-2xl md:text-3xl font-display font-semibold text-livrr-gray-dark mb-6 text-center">
-            Market Opportunity
+            Livrr Built On These
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
+            {impactStats.map((stat, index) => (
               <div 
                 key={stat.label}
                 className={`glass-card rounded-xl p-6 transition-all duration-700 delay-${index * 100} ${
