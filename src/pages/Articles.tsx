@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal } from '@/utils/animations';
 import { Newspaper, Clock, ArrowRight, Search, Filter, ImageOff } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -24,7 +23,7 @@ const sampleArticles: Article[] = [
     id: 1,
     title: "The Secrets of 100+ Year Old Sages: Ancient Wisdom for Modern Longevity",
     description: "Discover how Himalayan sages maintain extraordinary health well beyond 100 years through specific meditation techniques and lifestyle practices.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/1456951/pexels-photo-1456951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Longevity Research Journal",
     date: "2023-05-15",
     category: "Ancient Wisdom",
@@ -34,7 +33,7 @@ const sampleArticles: Article[] = [
     id: 2,
     title: "Vrushis: The Plant Compounds That Extended Lifespans in Traditional Communities",
     description: "Research into historical texts reveals how specific 'vrushi' compounds found in rare Himalayan plants activate longevity pathways and cellular regeneration.",
-    image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/4100130/pexels-photo-4100130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Health Sciences Journal",
     date: "2023-06-02",
     category: "Traditional Medicine",
@@ -44,7 +43,7 @@ const sampleArticles: Article[] = [
     id: 3,
     title: "Fasting Rituals of Centenarian Yogis: Scientific Validation of Ancient Practices",
     description: "Modern scientific analysis confirms how the specific fasting protocols of long-lived yogis activate autophagy and cellular cleansing mechanisms.",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/8436586/pexels-photo-8436586.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Medical Research Weekly",
     date: "2023-07-10",
     category: "Nutrition",
@@ -54,7 +53,7 @@ const sampleArticles: Article[] = [
     id: 4,
     title: "Rare Herbs Used by 100+ Year Old Sadhus for Cognitive Preservation",
     description: "A rare look into the herbal formulations used by century-old sadhus to maintain sharp cognitive function and neural plasticity throughout their long lives.",
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/6157224/pexels-photo-6157224.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Natural Health Magazine",
     date: "2023-08-05",
     category: "Herbal Medicine",
@@ -64,7 +63,7 @@ const sampleArticles: Article[] = [
     id: 5,
     title: "The Breath Techniques of Mountain Sages: How Specific Pranayama Extends Life",
     description: "Investigation into the specific breathing protocols practiced by long-lived mountain sages reveals how controlled breath work alters genetic expression and longevity.",
-    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/8436677/pexels-photo-8436677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Yogic Science Journal",
     date: "2023-09-12",
     category: "Breathwork",
@@ -74,7 +73,7 @@ const sampleArticles: Article[] = [
     id: 6,
     title: "Living Beyond 100: The Daily Rituals of Himalayan Masters",
     description: "Researchers document the precise daily routines of Himalayan masters who have lived beyond 100 years, revealing surprising simplicity in their longevity practices.",
-    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/957957/pexels-photo-957957.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Longevity Studies Institute",
     date: "2023-04-25",
     category: "Lifestyle",
@@ -84,7 +83,7 @@ const sampleArticles: Article[] = [
     id: 7,
     title: "The Mind-Body Practices of Ancient Vrushis for Disease Prevention",
     description: "Ancient vrushi practitioners developed specific mind-body techniques that modern science now confirms can prevent chronic disease and extend healthy lifespan.",
-    image: "https://images.unsplash.com/photo-1506365069540-904bcc762636?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/8436714/pexels-photo-8436714.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Preventive Medicine Today",
     date: "2023-03-18",
     category: "Mind-Body",
@@ -94,7 +93,7 @@ const sampleArticles: Article[] = [
     id: 8,
     title: "Sacred Plant Medicine: How Sages Used Rare Botanicals for Longevity",
     description: "The specific botanical preparations used by centenarian sages contain compounds now being studied by pharmaceutical companies for anti-aging properties.",
-    image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/6942029/pexels-photo-6942029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     source: "Ethnobotany Research",
     date: "2023-02-05",
     category: "Plant Medicine",
@@ -169,7 +168,6 @@ const Articles = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-livrr-beige/10">
-      <CustomCursor />
       <Navbar />
       
       <main className="pt-24 pb-20">

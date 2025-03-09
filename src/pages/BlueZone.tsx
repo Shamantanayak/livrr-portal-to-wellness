@@ -203,7 +203,7 @@ const BlueZone = () => {
                 <div className="aspect-video bg-gray-200 relative">
                   <iframe 
                     className="w-full h-full"
-                    src="https://www.youtube.com/embed/4rOV9qbLu7Y" 
+                    src="https://www.youtube.com/embed/9AThycGCakk" 
                     title="Blue Zone Centenarians" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowFullScreen
@@ -219,7 +219,7 @@ const BlueZone = () => {
                 <div className="aspect-video bg-gray-200 relative">
                   <iframe 
                     className="w-full h-full"
-                    src="https://www.youtube.com/embed/B9BNnYZPmxs" 
+                    src="https://www.youtube.com/embed/mryzkO5QWWY" 
                     title="Blue Zone Diet" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowFullScreen
@@ -333,14 +333,14 @@ const BlueZone = () => {
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Waitlist to Experience Blue Zone</h2>
               <p className="text-lg text-gray-700 mb-10 leading-relaxed">
                 Become part of a community dedicated to incorporating Blue Zone principles into modern life. 
-                Join our waitlist today to be among the first to access our exclusive Blue Zone experiences and resources.
+                Sign up today to be among the first to access our exclusive Blue Zone experiences, expert consultations, and customized longevity resources.
               </p>
               
               <Link 
                 to="/#waitlist" 
                 className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-300/30 hover:scale-105 transform duration-300"
               >
-                <span>Join the Waitlist</span>
+                <span>Join the Waitlist for Blue Zone Experience</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
