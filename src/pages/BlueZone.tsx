@@ -1,9 +1,10 @@
+
 import React, { useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BlueZone = () => {
@@ -28,10 +29,15 @@ const BlueZone = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100/30">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50/30 relative">
+      {/* Background elements for visual effect */}
+      <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-80 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-40 left-1/4 w-64 h-64 bg-blue-200/30 rounded-full blur-2xl"></div>
+      
       <Navbar />
       
-      <main className="pt-24 pb-20">
+      <main className="pt-24 pb-20 relative z-10">
         <section
           ref={headerRef}
           className="relative overflow-hidden py-20"
@@ -79,40 +85,45 @@ const BlueZone = () => {
           </div>
         </section>
         
-        <section className="py-20 bg-white">
-          <div className="container">
+        <section className="py-20 bg-white relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-50 to-transparent"></div>
+          <div className="absolute -top-10 right-10 w-20 h-20 bg-blue-100 rounded-full opacity-70"></div>
+          <div className="absolute top-40 left-20 w-16 h-16 bg-blue-200 rounded-full opacity-50"></div>
+          
+          <div className="container relative z-10">
             <div className="text-center mb-16">
+              <Sparkle className="h-8 w-8 text-blue-500 mx-auto mb-2" />
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Why Blue Zones Matter</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Blue Zones are regions where people live significantly longer and healthier lives. By studying these areas, we can uncover the secrets to longevity.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Heart className="h-8 w-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">Natural Movement</h3>
                 <p className="text-gray-600">People in Blue Zones move naturally throughout their day, not relying on gyms but integrating physical activity into daily life.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <TreeDeciduous className="h-8 w-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">Plant-Rich Diet</h3>
                 <p className="text-gray-600">Centenarians in Blue Zones eat a predominantly plant-based diet with minimal processed foods and moderate caloric intake.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Users className="h-8 w-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">Strong Communities</h3>
                 <p className="text-gray-600">Strong social connections and belonging to faith-based communities are common factors among the world's longest-lived people.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition">
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Sun className="h-8 w-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">Sense of Purpose</h3>
@@ -122,9 +133,13 @@ const BlueZone = () => {
           </div>
         </section>
         
-        <section id="videos" className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="container">
+        <section id="videos" className="py-20 bg-gradient-to-b from-blue-50 to-white relative">
+          <div className="absolute top-20 right-40 w-32 h-32 bg-blue-200/40 rounded-full blur-xl"></div>
+          <div className="absolute bottom-40 left-20 w-24 h-24 bg-blue-300/30 rounded-full blur-lg"></div>
+          
+          <div className="container relative z-10">
             <div className="text-center mb-16">
+              <Video className="h-8 w-8 text-blue-500 mx-auto mb-2" />
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Videos</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Watch and learn from the lifestyles of the world's longest-living communities.</p>
             </div>
@@ -181,9 +196,13 @@ const BlueZone = () => {
           </div>
         </section>
         
-        <section id="audios" className="py-20 bg-white">
-          <div className="container">
+        <section id="audios" className="py-20 bg-white relative overflow-hidden">
+          <div className="absolute top-40 left-1/3 w-40 h-40 bg-blue-100/60 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-20 right-1/4 w-32 h-32 bg-blue-200/50 rounded-full blur-xl"></div>
+          
+          <div className="container relative z-10">
             <div className="text-center mb-16">
+              <AudioLines className="h-8 w-8 text-blue-500 mx-auto mb-2" />
               <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Audio Stories</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Listen to the wisdom and experiences of centenarians and longevity experts.</p>
             </div>
@@ -270,21 +289,26 @@ const BlueZone = () => {
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <Mountain className="h-12 w-12 text-blue-500 mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Tribe to Make This Zone Yours</h2>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-6">Join Our Waitlist to Experience Blue Zone</h2>
               <p className="text-lg text-gray-700 mb-10">
                 Become part of a community dedicated to incorporating Blue Zone principles into modern life. 
-                Together, we can create our own Blue Zone and live longer, healthier, and more fulfilling lives.
+                Join our waitlist today to be among the first to access our exclusive Blue Zone experiences and resources.
               </p>
               
               <Link 
-                to="/livrr-tribe" 
-                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors"
+                to="/#waitlist" 
+                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-blue"
               >
-                <span>Join the Livrr Tribe</span>
+                <span>Join the Waitlist</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
+          
+          {/* Floating elements for visual appeal */}
+          <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full border-2 border-blue-200 opacity-40"></div>
+          <div className="absolute top-20 right-[10%] w-16 h-16 rounded-full border border-blue-300 opacity-30"></div>
+          <div className="absolute bottom-40 right-20 w-12 h-12 rounded-full bg-blue-100 opacity-60"></div>
         </section>
       </main>
       
