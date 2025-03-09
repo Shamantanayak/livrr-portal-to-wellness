@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal } from '@/utils/animations';
-import { Newspaper, Clock, ArrowRight, Search, Filter } from 'lucide-react';
+import { Newspaper, Clock, ArrowRight, Search, Filter, ImageOff } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 interface Article {
@@ -111,6 +111,7 @@ const Articles = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [imgErrors, setImgErrors] = useState<{[key: number]: boolean}>({});
   const { toast } = useToast();
   
   useEffect(() => {
@@ -156,8 +157,13 @@ const Articles = () => {
   };
 
   // Handle article click to open in a new tab
-  const handleArticleClick = (url: string, e: React.MouseEvent) => {
+  const handleArticleClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  // Handle image error
+  const handleImageError = (id: number) => {
+    setImgErrors(prev => ({...prev, [id]: true}));
   };
 
   return (
@@ -257,21 +263,26 @@ const Articles = () => {
                 {filteredArticles.map((article) => (
                   <div 
                     key={article.id}
-                    onClick={(e) => handleArticleClick(article.url, e)}
-                    className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group cursor-pointer"
+                    onClick={() => handleArticleClick(article.url)}
+                    className="reveal glass-card rounded-xl overflow-hidden transition-transform hover:scale-[1.02] group cursor-pointer shadow hover:shadow-lg"
                   >
-                    <div className="aspect-video w-full overflow-hidden bg-gray-100">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80";
-                          target.onerror = null; // Prevent infinite loop
-                        }}
-                      />
+                    <div className="aspect-video w-full overflow-hidden bg-gray-100 relative">
+                      {imgErrors[article.id] ? (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                          <div className="flex flex-col items-center">
+                            <ImageOff className="h-10 w-10 text-gray-400 mb-2" />
+                            <span className="text-sm text-gray-500">Image unavailable</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          onError={() => handleImageError(article.id)}
+                        />
+                      )}
                     </div>
                     <div className="p-6">
                       <div className="flex justify-between items-center mb-2">

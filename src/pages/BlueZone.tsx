@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Wave, Waves, CloudSun } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BlueZone = () => {
@@ -17,6 +17,19 @@ const BlueZone = () => {
       title: "Welcome to the Blue Zone",
       description: "Discover the secrets of longevity from the world's longest-living communities.",
     });
+    
+    // Add subtle animation for background elements
+    const animateBackground = () => {
+      const elements = document.querySelectorAll('.floating-element');
+      elements.forEach((el, index) => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.style.transform = `translate(${Math.sin(Date.now() * 0.001 + index) * 10}px, ${Math.cos(Date.now() * 0.001 + index) * 10}px)`;
+      });
+      requestAnimationFrame(animateBackground);
+    };
+    
+    const animationId = requestAnimationFrame(animateBackground);
+    return () => cancelAnimationFrame(animationId);
   }, [toast]);
 
   const handlePlayAudio = (audioId: string) => {
@@ -29,11 +42,21 @@ const BlueZone = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50/30 relative">
-      {/* Background elements for visual effect */}
-      <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl"></div>
-      <div className="absolute top-80 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-40 left-1/4 w-64 h-64 bg-blue-200/30 rounded-full blur-2xl"></div>
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 via-blue-50 to-white relative overflow-hidden">
+      {/* Enhanced background elements with animation */}
+      <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl floating-element transition-transform duration-3000"></div>
+      <div className="absolute top-80 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl floating-element transition-transform duration-3000"></div>
+      <div className="absolute bottom-40 left-1/4 w-64 h-64 bg-blue-200/30 rounded-full blur-2xl floating-element transition-transform duration-3000"></div>
+      <div className="absolute top-60 left-1/3 w-40 h-40 bg-cyan-200/30 rounded-full blur-xl floating-element transition-transform duration-2000"></div>
+      <div className="absolute bottom-80 right-1/4 w-56 h-56 bg-sky-300/20 rounded-full blur-2xl floating-element transition-transform duration-2500"></div>
+      
+      {/* Decorative waves */}
+      <div className="absolute top-[25%] left-0 w-full opacity-5 text-blue-600">
+        <Waves className="w-full h-20" />
+      </div>
+      <div className="absolute top-[65%] left-0 w-full opacity-5 text-blue-600 rotate-180">
+        <Waves className="w-full h-20" />
+      </div>
       
       <Navbar />
       
@@ -45,28 +68,32 @@ const BlueZone = () => {
           <div 
             className="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1559827291-72ee739d0d9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] 
             bg-cover bg-center opacity-20"
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-500/30 to-transparent"></div>
+          </div>
           
           <div className={`container transition-all duration-700 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             <div className="text-center max-w-3xl mx-auto">
+              <CloudSun className="h-12 w-12 text-blue-500 mx-auto mb-4 animate-pulse" />
               <span className="bg-blue-500/10 text-blue-600 px-4 py-1 rounded-full text-sm font-medium mb-4 inline-block">
                 Living Longer, Living Better
               </span>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-blue-800">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-blue-800 relative">
                 The Blue Zone Experience
+                <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-blue-400 rounded-full"></span>
               </h1>
               
-              <p className="text-lg text-gray-700 mb-6">
+              <p className="text-lg text-gray-700 mb-8">
                 Explore the lifestyles, practices, and wisdom of communities where people routinely live beyond 100 years 
                 with exceptional health and vitality.
               </p>
               
               <div className="flex flex-wrap justify-center gap-4 mb-10">
                 <button 
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors flex items-center gap-2 shadow-lg shadow-blue-300/30 hover:shadow-blue-400/40"
                   onClick={() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   <Video className="h-5 w-5" />
@@ -74,7 +101,7 @@ const BlueZone = () => {
                 </button>
                 
                 <button 
-                  className="px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full font-medium transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full font-medium transition-colors flex items-center gap-2 shadow-lg shadow-blue-100/30"
                   onClick={() => document.getElementById('audios')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   <AudioLines className="h-5 w-5" />
@@ -87,18 +114,21 @@ const BlueZone = () => {
         
         <section className="py-20 bg-white relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-50 to-transparent"></div>
-          <div className="absolute -top-10 right-10 w-20 h-20 bg-blue-100 rounded-full opacity-70"></div>
-          <div className="absolute top-40 left-20 w-16 h-16 bg-blue-200 rounded-full opacity-50"></div>
+          <div className="absolute -top-10 right-10 w-20 h-20 bg-blue-100 rounded-full opacity-70 floating-element"></div>
+          <div className="absolute top-40 left-20 w-16 h-16 bg-blue-200 rounded-full opacity-50 floating-element"></div>
           
           <div className="container relative z-10">
             <div className="text-center mb-16">
-              <Sparkle className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Why Blue Zones Matter</h2>
+              <Sparkle className="h-10 w-10 text-blue-500 mx-auto mb-2 animate-spin-slow" />
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4 relative inline-block">
+                Why Blue Zones Matter
+                <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-blue-400"></span>
+              </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Blue Zones are regions where people live significantly longer and healthier lives. By studying these areas, we can uncover the secrets to longevity.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Heart className="h-8 w-8 text-blue-600" />
                 </div>
@@ -106,7 +136,7 @@ const BlueZone = () => {
                 <p className="text-gray-600">People in Blue Zones move naturally throughout their day, not relying on gyms but integrating physical activity into daily life.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <TreeDeciduous className="h-8 w-8 text-blue-600" />
                 </div>
@@ -114,7 +144,7 @@ const BlueZone = () => {
                 <p className="text-gray-600">Centenarians in Blue Zones eat a predominantly plant-based diet with minimal processed foods and moderate caloric intake.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Users className="h-8 w-8 text-blue-600" />
                 </div>
@@ -122,7 +152,7 @@ const BlueZone = () => {
                 <p className="text-gray-600">Strong social connections and belonging to faith-based communities are common factors among the world's longest-lived people.</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group">
+              <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
                   <Sun className="h-8 w-8 text-blue-600" />
                 </div>
@@ -134,18 +164,21 @@ const BlueZone = () => {
         </section>
         
         <section id="videos" className="py-20 bg-gradient-to-b from-blue-50 to-white relative">
-          <div className="absolute top-20 right-40 w-32 h-32 bg-blue-200/40 rounded-full blur-xl"></div>
-          <div className="absolute bottom-40 left-20 w-24 h-24 bg-blue-300/30 rounded-full blur-lg"></div>
+          <div className="absolute top-20 right-40 w-32 h-32 bg-blue-200/40 rounded-full blur-xl floating-element"></div>
+          <div className="absolute bottom-40 left-20 w-24 h-24 bg-blue-300/30 rounded-full blur-lg floating-element"></div>
           
           <div className="container relative z-10">
             <div className="text-center mb-16">
-              <Video className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Videos</h2>
+              <Video className="h-10 w-10 text-blue-500 mx-auto mb-2" />
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4 relative inline-block">
+                Blue Zone Videos
+                <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-blue-400"></span>
+              </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Watch and learn from the lifestyles of the world's longest-living communities.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group transform hover:-translate-y-1">
                 <div className="aspect-video bg-gray-200 relative">
                   <iframe 
                     className="w-full h-full"
@@ -161,7 +194,7 @@ const BlueZone = () => {
                 </div>
               </div>
               
-              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group transform hover:-translate-y-1">
                 <div className="aspect-video bg-gray-200 relative">
                   <iframe 
                     className="w-full h-full"
@@ -177,7 +210,7 @@ const BlueZone = () => {
                 </div>
               </div>
               
-              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group">
+              <div className="glass-card overflow-hidden rounded-xl hover:shadow-lg transition group transform hover:-translate-y-1">
                 <div className="aspect-video bg-gray-200 relative">
                   <iframe 
                     className="w-full h-full"
@@ -197,21 +230,24 @@ const BlueZone = () => {
         </section>
         
         <section id="audios" className="py-20 bg-white relative overflow-hidden">
-          <div className="absolute top-40 left-1/3 w-40 h-40 bg-blue-100/60 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-20 right-1/4 w-32 h-32 bg-blue-200/50 rounded-full blur-xl"></div>
+          <div className="absolute top-40 left-1/3 w-40 h-40 bg-blue-100/60 rounded-full blur-2xl floating-element"></div>
+          <div className="absolute bottom-20 right-1/4 w-32 h-32 bg-blue-200/50 rounded-full blur-xl floating-element"></div>
           
           <div className="container relative z-10">
             <div className="text-center mb-16">
-              <AudioLines className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4">Blue Zone Audio Stories</h2>
+              <AudioLines className="h-10 w-10 text-blue-500 mx-auto mb-2" />
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-blue-800 mb-4 relative inline-block">
+                Blue Zone Audio Stories
+                <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-blue-400"></span>
+              </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">Listen to the wisdom and experiences of centenarians and longevity experts.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition transform hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-blue-800 mb-4">Wisdom of Centenarians</h3>
                 <p className="text-gray-600 mb-4">Listen to the stories and advice from people who have lived beyond 100 years.</p>
-                <div className="mb-4">
+                <div className="mb-4 bg-blue-50 p-4 rounded-lg shadow-inner">
                   <audio 
                     id="audio1" 
                     ref={audioRef}
@@ -226,10 +262,10 @@ const BlueZone = () => {
                 <p className="text-sm text-gray-500 italic">Sample audio - replace with actual centenarian interviews</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition transform hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-blue-800 mb-4">Expert Insights on Blue Zones</h3>
                 <p className="text-gray-600 mb-4">Hear from researchers and experts who study the Blue Zones phenomenon.</p>
-                <div className="mb-4">
+                <div className="mb-4 bg-blue-50 p-4 rounded-lg shadow-inner">
                   <audio 
                     id="audio2" 
                     className="w-full" 
@@ -243,10 +279,10 @@ const BlueZone = () => {
                 <p className="text-sm text-gray-500 italic">Sample audio - replace with actual expert interviews</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition transform hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-blue-800 mb-4">Blue Zone Meditation</h3>
                 <p className="text-gray-600 mb-4">A guided meditation inspired by the stress-reduction practices found in Blue Zones.</p>
-                <div className="mb-4">
+                <div className="mb-4 bg-blue-50 p-4 rounded-lg shadow-inner">
                   <audio 
                     id="audio3" 
                     className="w-full" 
@@ -260,10 +296,10 @@ const BlueZone = () => {
                 <p className="text-sm text-gray-500 italic">Sample audio - replace with actual meditation audio</p>
               </div>
               
-              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition">
+              <div className="glass-card p-6 rounded-xl hover:shadow-lg transition transform hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-blue-800 mb-4">Traditional Blue Zone Music</h3>
                 <p className="text-gray-600 mb-4">Traditional music from regions known for their longevity and healthy lifestyles.</p>
-                <div className="mb-4">
+                <div className="mb-4 bg-blue-50 p-4 rounded-lg shadow-inner">
                   <audio 
                     id="audio4" 
                     className="w-full" 
@@ -282,7 +318,7 @@ const BlueZone = () => {
         
         <section className="py-20 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-10"></div>
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-15"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent"></div>
           </div>
           
@@ -297,7 +333,7 @@ const BlueZone = () => {
               
               <Link 
                 to="/#waitlist" 
-                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-blue"
+                className="button-primary group inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-lg shadow-blue-300/30"
               >
                 <span>Join the Waitlist</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -306,9 +342,9 @@ const BlueZone = () => {
           </div>
           
           {/* Floating elements for visual appeal */}
-          <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full border-2 border-blue-200 opacity-40"></div>
-          <div className="absolute top-20 right-[10%] w-16 h-16 rounded-full border border-blue-300 opacity-30"></div>
-          <div className="absolute bottom-40 right-20 w-12 h-12 rounded-full bg-blue-100 opacity-60"></div>
+          <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full border-2 border-blue-200 opacity-40 floating-element"></div>
+          <div className="absolute top-20 right-[10%] w-16 h-16 rounded-full border border-blue-300 opacity-30 floating-element"></div>
+          <div className="absolute bottom-40 right-20 w-12 h-12 rounded-full bg-blue-100 opacity-60 floating-element"></div>
         </section>
       </main>
       
