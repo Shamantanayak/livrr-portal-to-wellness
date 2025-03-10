@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,7 +9,7 @@ const navLinks = [
   { name: 'Products', href: '/products' },
   { name: 'Survey', href: '/survey' },
   { name: 'Livrr AI', href: '/longi' },
-  { name: 'Articles', href: '/articles' },
+  { name: 'Livrr α', href: '/livrr-alpha' },
   { name: 'Blue Zone', href: '/blue-zone' },
 ];
 

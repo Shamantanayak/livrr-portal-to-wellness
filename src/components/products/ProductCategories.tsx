@@ -19,13 +19,13 @@ const categories = [
   {
     id: 'unani',
     title: 'Unani',
-    image: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d',
+    image: 'https://images.pexels.com/photos/6087669/pexels-photo-6087669.jpeg',
     description: 'Traditional Persian and Arabic system focusing on the balance of bodily humors.'
   },
   {
     id: 'siddha',
     title: 'Siddha',
-    image: 'https://images.unsplash.com/photo-1577467014381-aa7c348be206',
+    image: 'https://images.pexels.com/photos/6758773/pexels-photo-6758773.jpeg',
     description: 'Ancient Tamil medicinal system emphasizing spiritual practices and herbal remedies.'
   },
   {
@@ -37,7 +37,7 @@ const categories = [
   {
     id: 'tcm',
     title: 'Traditional Chinese Medicine',
-    image: 'https://images.unsplash.com/photo-1519781542704-957ff19eff00',
+    image: 'https://images.pexels.com/photos/3993946/pexels-photo-3993946.jpeg',
     description: 'Holistic approach using acupuncture, herbs, and energy balance techniques.'
   }
 ];
@@ -55,9 +55,9 @@ const ProductCategories = () => {
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark text-center mb-6 relative">
-            <span className="bg-white px-4 relative z-10">Traditional Medicine Categories</span>
-            <span className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-2/3 h-1 bg-gradient-to-r from-livrr-green to-livrr-blue"></span>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark text-center mb-6">
+            Traditional Medicine Categories
+            <span className="block w-full h-1 mt-2 bg-gradient-to-r from-livrr-green to-livrr-blue"></span>
           </h2>
           <p className="text-center text-livrr-gray-dark">
             We offer a comprehensive range of traditional healing systems to support your health and longevity

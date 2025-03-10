@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -99,13 +100,13 @@ const LivrrTribe = () => {
     }, 1500);
   };
 
-  // Tribe member photos
+  // Tribe member photos - updated with reliable images
   const tribeMembers = [
-    "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8",
-    "https://images.unsplash.com/photo-1447005497901-b3e9ee359928",
-    "https://images.unsplash.com/photo-1569754170500-55c5a00c302d",
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
-    "https://images.unsplash.com/photo-1597343772797-b9ecd7b887f5",
+    "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
+    "https://images.pexels.com/photos/3768911/pexels-photo-3768911.jpeg",
+    "https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg",
+    "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg",
+    "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg",
   ];
 
   return (
@@ -275,28 +276,28 @@ const LivrrTribe = () => {
                 <div className="md:w-1/2 grid grid-cols-2 gap-4">
                   <div className="aspect-square rounded-lg overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" 
+                      src="https://images.pexels.com/photos/1144834/pexels-photo-1144834.jpeg" 
                       alt="Community member" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-lg overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" 
+                      src="https://images.pexels.com/photos/3764013/pexels-photo-3764013.jpeg" 
                       alt="Community member" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-lg overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1579191721855-0ef14eaec98d" 
+                      src="https://images.pexels.com/photos/1153372/pexels-photo-1153372.jpeg" 
                       alt="Community member" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-lg overflow-hidden">
                     <img 
-                      src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+                      src="https://images.pexels.com/photos/3771809/pexels-photo-3771809.jpeg" 
                       alt="Community member" 
                       className="w-full h-full object-cover"
                     />
