@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal, usePulseAnimation } from '@/utils/animations';
-import { Cpu, Zap, BrainCircuit, WifiOff, SmartphoneCharging, Activity, Watch, BadgeCheck, Clock, BarChart4, Sparkles, Network, Code, Server } from 'lucide-react';
+import { Cpu, Zap, BrainCircuit, WifiOff, SmartphoneCharging, Activity, Watch, BadgeCheck, Clock, BarChart4, Sparkles } from 'lucide-react';
 import WaveDivider from '@/components/ui/WaveDivider';
 import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/use-toast";
 import { Link } from 'react-router-dom';
 import Waitlist from '@/components/Waitlist';
 
@@ -85,30 +86,6 @@ const LivrrAlpha = () => {
     { value: "47%", label: "Increase in Physical Activity", icon: <BarChart4 className="h-6 w-6" /> },
     { value: "93%", label: "User Satisfaction Rate", icon: <Zap className="h-6 w-6" /> },
   ];
-
-  // Tech stack behind the algorithm
-  const techStack = [
-    {
-      title: "Machine Learning Core",
-      description: "Powered by advanced neural networks that learn your habits and optimize recommendations",
-      icon: <BrainCircuit className="h-8 w-8" />
-    },
-    {
-      title: "Real-time Data Processing",
-      description: "Processes billions of data points per second to deliver instant insights",
-      icon: <Activity className="h-8 w-8" />
-    },
-    {
-      title: "Cloud Architecture",
-      description: "Scalable cloud infrastructure ensures reliability and performance",
-      icon: <Server className="h-8 w-8" />
-    },
-    {
-      title: "Open API Platform",
-      description: "Developer-friendly APIs enable integration with any wearable or health application",
-      icon: <Code className="h-8 w-8" />
-    }
-  ];
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-livrr-beige/10 overflow-hidden">
@@ -182,7 +159,7 @@ const LivrrAlpha = () => {
               <div className="md:w-1/2 relative">
                 <div className="relative z-10 animation-float">
                   <img 
-                    src="/public/lovable-uploads/9b027d5c-c8a7-4d22-976a-b9b736305a78.png" 
+                    src="/public/lovable-uploads/2e21cc14-521d-4b2b-89df-519bf0e031d1.png" 
                     alt="Livrr Alpha Algorithm Visualization" 
                     className="rounded-lg shadow-2xl max-w-full relative z-20"
                   />
@@ -246,44 +223,8 @@ const LivrrAlpha = () => {
           </div>
         </section>
         
-        {/* Technical Architecture Section - New */}
-        <section className="py-20 bg-livrr-beige/10">
-          <div className="container">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark mb-4">
-                Cutting-Edge Technical Architecture
-              </h2>
-              <p className="text-lg text-livrr-gray-dark max-w-3xl mx-auto">
-                Built on advanced technology to deliver seamless insights and integration
-              </p>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <div className="lg:w-1/2">
-                <img 
-                  src="/public/lovable-uploads/cec60655-9ac7-40f0-a2d0-42383fd9a03e.png" 
-                  alt="Livrr Alpha API Architecture" 
-                  className="rounded-xl shadow-xl w-full max-w-2xl mx-auto"
-                />
-              </div>
-              
-              <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {techStack.map((tech, index) => (
-                  <div key={tech.title} className="glass-card p-6 rounded-xl">
-                    <div className="w-16 h-16 mb-4 bg-gradient-to-br from-livrr-green/20 to-livrr-blue/20 rounded-full flex items-center justify-center text-livrr-green-dark">
-                      {tech.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold text-livrr-green-dark mb-2">{tech.title}</h3>
-                    <p className="text-livrr-gray-dark text-sm">{tech.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-        
         {/* How It Works */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-livrr-beige/10">
           <div className="container">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark mb-4">
@@ -333,7 +274,7 @@ const LivrrAlpha = () => {
         </section>
         
         {/* Use Cases */}
-        <section className="py-20 bg-livrr-beige/10">
+        <section className="py-20 bg-white">
           <div className="container">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark mb-4">
@@ -431,7 +372,7 @@ const LivrrAlpha = () => {
         </section>
         
         {/* Early Access */}
-        <section id="early-access" className="py-20 bg-white">
+        <section id="early-access" className="py-20 bg-livrr-beige/10">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark mb-6">
@@ -495,7 +436,7 @@ const LivrrAlpha = () => {
         </section>
         
         {/* Testimonials */}
-        <section className="py-20 bg-livrr-beige/10">
+        <section className="py-20 bg-white">
           <div className="container">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark mb-4">
@@ -510,7 +451,7 @@ const LivrrAlpha = () => {
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100&h=100" 
+                    src="/public/lovable-uploads/616cfb5d-5174-4a03-92d2-1d81eb5bcc7b.png" 
                     alt="Testimonial user" 
                     className="w-12 h-12 rounded-full object-cover mr-4"
                   />
@@ -534,7 +475,7 @@ const LivrrAlpha = () => {
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100" 
+                    src="/public/lovable-uploads/2c2efda5-e17b-4942-9261-576d0886330b.png" 
                     alt="Testimonial user" 
                     className="w-12 h-12 rounded-full object-cover mr-4"
                   />
@@ -557,11 +498,9 @@ const LivrrAlpha = () => {
               
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100&h=100" 
-                    alt="Testimonial user" 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-livrr-green to-livrr-blue flex items-center justify-center text-white font-bold mr-4">
+                    JL
+                  </div>
                   <div>
                     <h4 className="font-semibold text-livrr-green-dark">Jennifer L.</h4>
                     <p className="text-xs text-livrr-gray">Yoga Instructor, 41</p>
