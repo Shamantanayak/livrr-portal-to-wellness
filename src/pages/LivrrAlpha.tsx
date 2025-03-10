@@ -157,11 +157,11 @@ const LivrrAlpha = () => {
               </div>
               
               <div className="md:w-1/2 relative">
-                <div className="relative z-10 animation-float">
+                <div className="relative z-10 animation-float flex justify-center">
                   <img 
-                    src="public/lovable-uploads/ffde7008-ba37-42d6-8b1c-82590d605e0f.png" 
+                    src="/lovable-uploads/ffde7008-ba37-42d6-8b1c-82590d605e0f.png" 
                     alt="Livrr Alpha Algorithm Visualization" 
-                    className="rounded-lg shadow-2xl max-w-full relative z-20"
+                    className="rounded-lg shadow-2xl max-w-full h-auto object-contain max-h-[400px]"
                   />
                   
                   {/* Glow effect */}
@@ -238,11 +238,12 @@ const LivrrAlpha = () => {
             <div className="relative max-w-4xl mx-auto">
               {/* Algorithm flow diagram */}
               <div className="glass-card rounded-xl p-8 mb-12">
-                <div className="relative">
+                <div className="relative flex justify-center">
                   <img 
-                    src="public/lovable-uploads/23504447-cda8-4dd3-96bc-a11bb140ec01.png" 
+                    src="/lovable-uploads/23504447-cda8-4dd3-96bc-a11bb140ec01.png" 
                     alt="Livrr Alpha Algorithm Flow" 
-                    className="w-full rounded-lg shadow-md"
+                    className="w-full max-w-[800px] h-auto rounded-lg shadow-md object-contain"
+                    style={{ maxHeight: "400px" }}
                   />
                   
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
@@ -450,12 +451,14 @@ const LivrrAlpha = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
-                  <img 
-                    src="/public/lovable-uploads/616cfb5d-5174-4a03-92d2-1d81eb5bcc7b.png" 
-                    alt="Testimonial user" 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
-                  <div>
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/616cfb5d-5174-4a03-92d2-1d81eb5bcc7b.png" 
+                      alt="Testimonial user" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="ml-4">
                     <h4 className="font-semibold text-livrr-green-dark">Sarah K.</h4>
                     <p className="text-xs text-livrr-gray">Digital Marketer, 34</p>
                   </div>
@@ -474,12 +477,14 @@ const LivrrAlpha = () => {
               
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
-                  <img 
-                    src="/public/lovable-uploads/2c2efda5-e17b-4942-9261-576d0886330b.png" 
-                    alt="Testimonial user" 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
-                  <div>
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/2c2efda5-e17b-4942-9261-576d0886330b.png" 
+                      alt="Testimonial user" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="ml-4">
                     <h4 className="font-semibold text-livrr-green-dark">Michael T.</h4>
                     <p className="text-xs text-livrr-gray">Software Engineer, 28</p>
                   </div>
@@ -498,10 +503,10 @@ const LivrrAlpha = () => {
               
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-livrr-green to-livrr-blue flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-livrr-green to-livrr-blue flex items-center justify-center text-white font-bold">
                     JL
                   </div>
-                  <div>
+                  <div className="ml-4">
                     <h4 className="font-semibold text-livrr-green-dark">Jennifer L.</h4>
                     <p className="text-xs text-livrr-gray">Yoga Instructor, 41</p>
                   </div>
@@ -528,3 +533,4 @@ const LivrrAlpha = () => {
 };
 
 export default LivrrAlpha;
+
