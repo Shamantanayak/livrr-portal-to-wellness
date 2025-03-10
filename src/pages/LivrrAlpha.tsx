@@ -159,7 +159,7 @@ const LivrrAlpha = () => {
               <div className="md:w-1/2 relative">
                 <div className="relative z-10 animation-float">
                   <img 
-                    src="/public/lovable-uploads/2e21cc14-521d-4b2b-89df-519bf0e031d1.png" 
+                    src="public/lovable-uploads/ffde7008-ba37-42d6-8b1c-82590d605e0f.png" 
                     alt="Livrr Alpha Algorithm Visualization" 
                     className="rounded-lg shadow-2xl max-w-full relative z-20"
                   />
