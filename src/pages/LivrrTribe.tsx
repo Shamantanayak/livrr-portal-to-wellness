@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { useScrollReveal, usePulseAnimation } from '@/utils/animations';
-import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart, Twitter, Instagram, Facebook, Hash } from 'lucide-react';
+import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart, Twitter, Instagram, Facebook, Hash, CheckCircle, Calendar, Store, Users2 } from 'lucide-react';
 import WaveDivider from '@/components/ui/WaveDivider';
 import { useToast } from "@/hooks/use-toast";
 
@@ -47,34 +46,40 @@ const LivrrTribe = () => {
   
   const tribeFeatures = [
     {
-      title: "Disease Resistance Network",
-      description: "Our members benefit from shared immunity knowledge and practices that help resist common infections and diseases.",
-      icon: <Shield className="h-10 w-10" />,
+      title: "Weekly Progress Tracking",
+      description: "Monitor your health improvements with our detailed weekly progress tracking system.",
+      icon: <CheckCircle className="h-10 w-10" />,
       color: "from-green-400 to-emerald-500"
     },
     {
-      title: "Toxic Environment Protection",
-      description: "Learn proven strategies to counteract the negative effects of environmental toxins and stressors.",
-      icon: <Leaf className="h-10 w-10" />,
+      title: "Cheat Days Allowed",
+      description: "Our flexible approach includes scheduled cheat days to keep your journey sustainable and enjoyable.",
+      icon: <Calendar className="h-10 w-10" />,
       color: "from-blue-400 to-indigo-500"
     },
     {
-      title: "Longevity Support Group",
-      description: "Connect with fellow tribe members focused on extending not just lifespan, but healthspan.",
-      icon: <Heart className="h-10 w-10" />,
+      title: "Blue Zone 30 Days Full Access",
+      description: "Get complete access to our exclusive Blue Zone resources and programs for a full month.",
+      icon: <Shield className="h-10 w-10" />,
       color: "from-amber-400 to-orange-500"
     },
     {
-      title: "Age Reversal Practices",
-      description: "Access traditional and modern techniques shown to slow or reverse biological aging markers.",
-      icon: <Clock className="h-10 w-10" />,
+      title: "Structured Diet Plan for 10 Days",
+      description: "Follow our expert-designed 10-day diet plan to kickstart your health transformation.",
+      icon: <Leaf className="h-10 w-10" />,
       color: "from-purple-400 to-pink-500"
     },
     {
-      title: "Achievement Recognition",
-      description: "Celebrate milestones and health improvements with our community recognition system.",
-      icon: <Award className="h-10 w-10" />,
+      title: "Community Meet-ups",
+      description: "Connect with fellow tribe members in regular community gatherings and support sessions.",
+      icon: <Users2 className="h-10 w-10" />,
       color: "from-livrr-green to-livrr-blue"
+    },
+    {
+      title: "Pure Products Discount",
+      description: "Enjoy special discounts on our curated selection of organic and natural health products.",
+      icon: <Store className="h-10 w-10" />,
+      color: "from-teal-400 to-cyan-500"
     }
   ];
   
@@ -96,11 +101,11 @@ const LivrrTribe = () => {
 
   // Tribe member photos
   const tribeMembers = [
-    "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+    "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8",
+    "https://images.unsplash.com/photo-1447005497901-b3e9ee359928",
+    "https://images.unsplash.com/photo-1569754170500-55c5a00c302d",
     "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
-    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
-    "https://images.unsplash.com/photo-1579191721855-0ef14eaec98d",
+    "https://images.unsplash.com/photo-1597343772797-b9ecd7b887f5",
   ];
 
   return (

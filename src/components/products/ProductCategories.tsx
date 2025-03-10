@@ -11,16 +11,34 @@ const categories = [
     description: 'Ancient Indian system of medicine using herbs, diet, and lifestyle practices.'
   },
   {
-    id: 'tcm',
-    title: 'Traditional Chinese Medicine',
+    id: 'homeopathy',
+    title: 'Homeopathy',
     image: 'https://images.pexels.com/photos/5699514/pexels-photo-5699514.jpeg',
-    description: 'Holistic approach using acupuncture, herbs, and energy balance techniques.'
+    description: 'Alternative medicine based on the concept that "like cures like" with highly diluted substances.'
+  },
+  {
+    id: 'unani',
+    title: 'Unani',
+    image: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d',
+    description: 'Traditional Persian and Arabic system focusing on the balance of bodily humors.'
+  },
+  {
+    id: 'siddha',
+    title: 'Siddha',
+    image: 'https://images.unsplash.com/photo-1577467014381-aa7c348be206',
+    description: 'Ancient Tamil medicinal system emphasizing spiritual practices and herbal remedies.'
   },
   {
     id: 'naturopathy',
     title: 'Naturopathy',
     image: 'https://images.pexels.com/photos/5699515/pexels-photo-5699515.jpeg',
     description: 'Natural healing methods focusing on diet, lifestyle, and preventative care.'
+  },
+  {
+    id: 'tcm',
+    title: 'Traditional Chinese Medicine',
+    image: 'https://images.unsplash.com/photo-1519781542704-957ff19eff00',
+    description: 'Holistic approach using acupuncture, herbs, and energy balance techniques.'
   }
 ];
 
@@ -37,8 +55,9 @@ const ProductCategories = () => {
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark text-center mb-6">
-            Traditional Medicine Categories
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-livrr-green-dark text-center mb-6 relative">
+            <span className="bg-white px-4 relative z-10">Traditional Medicine Categories</span>
+            <span className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-2/3 h-1 bg-gradient-to-r from-livrr-green to-livrr-blue"></span>
           </h2>
           <p className="text-center text-livrr-gray-dark">
             We offer a comprehensive range of traditional healing systems to support your health and longevity

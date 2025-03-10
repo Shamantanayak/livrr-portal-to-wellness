@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { useTypewriter, usePulseAnimation, useFloatingAnimation } from '@/utils/animations';
 import WaveDivider from './ui/WaveDivider';
@@ -32,7 +31,6 @@ const Hero = () => {
         }}
       />
       
-      {/* Decorative Elements */}
       <div 
         className="absolute top-1/4 left-10 w-20 h-20 rounded-full bg-livrr-green/10 animate-float"
         ref={pulseCircleRef}
@@ -44,7 +42,6 @@ const Hero = () => {
         className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-livrr-beige/30 animate-spin-slow opacity-60"
       />
       
-      {/* Flying stars animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="star-1 absolute top-[15%] left-[10%]" ref={floatingElementRef}>
           <Star className="text-livrr-green/30 h-12 w-12" />
@@ -69,7 +66,6 @@ const Hero = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight">
               <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-livrr-green-dark to-livrr-blue-dark">
                 Livrr
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-livrr-green to-livrr-blue" />
               </span>
               <br />
               <span className="text-livrr-gray-dark h-[40px] md:h-[48px] lg:h-[60px] inline-block">
@@ -110,11 +106,9 @@ const Hero = () => {
           
           <div className="order-1 lg:order-2 flex justify-center" ref={floatingRef}>
             <div className="relative w-full max-w-md aspect-square">
-              {/* Abstract Circles */}
               <div className="absolute -top-10 -left-10 w-64 h-64 rounded-full bg-gradient-to-br from-livrr-green/20 to-livrr-blue/20 animate-pulse-slow" />
               <div className="absolute -bottom-5 -right-5 w-48 h-48 rounded-full bg-gradient-to-tr from-livrr-blue/20 to-livrr-beige/20 animate-float" />
               
-              {/* Main image wrapper */}
               <div className="relative z-10 glass rounded-2xl h-full w-full overflow-hidden shadow-glass-lg group">
                 <img 
                   src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" 
@@ -122,7 +116,6 @@ const Hero = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 
-                {/* Floating cards */}
                 <div className="absolute bottom-6 left-6 glass-card px-4 py-3 rounded-lg max-w-[80%] backdrop-blur-md">
                   <div className="flex items-center">
                     <div className="mr-3 h-8 w-8 rounded-full bg-gradient-to-r from-livrr-green to-livrr-blue flex items-center justify-center text-white">
@@ -150,7 +143,6 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce">
         <div className="text-xs text-livrr-gray-dark mb-2">Scroll to explore</div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-livrr-green">
