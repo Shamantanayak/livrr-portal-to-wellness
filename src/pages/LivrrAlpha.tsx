@@ -240,7 +240,7 @@ const LivrrAlpha = () => {
               <div className="glass-card rounded-xl p-8 mb-12">
                 <div className="relative">
                   <img 
-                    src="/public/lovable-uploads/2527d39d-bf73-4eb0-a4d5-a6369fd5f98d.png" 
+                    src="public/lovable-uploads/23504447-cda8-4dd3-96bc-a11bb140ec01.png" 
                     alt="Livrr Alpha Algorithm Flow" 
                     className="w-full rounded-lg shadow-md"
                   />
