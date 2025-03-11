@@ -13,14 +13,26 @@ export type Database = {
         Row: {
           created_at: string
           id: number
+          user_age: string | null
+          user_email: string | null
+          user_name: string | null
+          user_phone: string | null
         }
         Insert: {
           created_at?: string
           id?: number
+          user_age?: string | null
+          user_email?: string | null
+          user_name?: string | null
+          user_phone?: string | null
         }
         Update: {
           created_at?: string
           id?: number
+          user_age?: string | null
+          user_email?: string | null
+          user_name?: string | null
+          user_phone?: string | null
         }
         Relationships: []
       }
@@ -43,14 +55,20 @@ export type Database = {
         Row: {
           created_at: string
           id: number
+          user_email: string | null
+          user_name: string | null
         }
         Insert: {
           created_at?: string
           id?: number
+          user_email?: string | null
+          user_name?: string | null
         }
         Update: {
           created_at?: string
           id?: number
+          user_email?: string | null
+          user_name?: string | null
         }
         Relationships: []
       }

@@ -1,18 +1,16 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import { ArrowRight, CheckCircle, ArrowLeft, Send, ArrowUp, Heart, Activity, Clipboard, HelpCircle } from 'lucide-react';
-import { useToast } from "@/components/ui/use-toast";
+import { useFormSubmission } from "@/hooks/use-form-submission";
 
 const Survey = () => {
-  const { toast } = useToast();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string | string[]>>({});
   const [otherText, setOtherText] = useState<Record<number, string>>({});
+  const [surveyCompleted, setSurveyCompleted] = useState(false);
   
-  // Define all survey questions and their options
   const questions = [
     {
       question: "How often do you check your overall health?",
@@ -113,7 +111,6 @@ const Survey = () => {
       [currentQuestion]: answer
     }));
     
-    // If it's the last question, submit the survey, otherwise go to next question
     if (currentQuestion === questions.length - 1) {
       handleSubmit();
     } else {
@@ -144,19 +141,31 @@ const Survey = () => {
     }
   };
   
-  const handleSubmit = () => {
-    console.log('Survey answers:', answers);
+  const { isSubmitting, submitForm } = useFormSubmission({
+    formType: 'survey',
+    successMessage: {
+      title: "Survey Submitted",
+      description: "Thank you for taking the time to complete our survey. Your feedback is valuable to us."
+    },
+    onSuccess: () => setSurveyCompleted(true)
+  });
+  
+  const handleSubmit = async () => {
+    console.log('Preparing to submit survey answers:', answers);
     console.log('Text answers:', otherText);
     
-    toast({
-      title: "Survey Submitted",
-      description: "Thank you for taking the time to complete our survey. Your feedback is valuable to us.",
-    });
+    const surveyData = {
+      answers,
+      additionalText: otherText
+    };
     
-    // Reset the survey
-    setCurrentQuestion(0);
-    setAnswers({});
-    setOtherText({});
+    await submitForm(surveyData);
+    
+    if (surveyCompleted) {
+      setCurrentQuestion(0);
+      setAnswers({});
+      setOtherText({});
+    }
   };
   
   const getProgressPercentage = () => {
@@ -182,7 +191,6 @@ const Survey = () => {
             </p>
           </div>
           
-          {/* Progress bar */}
           <div className="w-full h-2 bg-gray-200 rounded-full mb-10">
             <div 
               className="h-full bg-gradient-to-r from-livrr-green to-livrr-blue rounded-full transition-all duration-500"
@@ -190,9 +198,7 @@ const Survey = () => {
             ></div>
           </div>
           
-          {/* Question card */}
           <div className="glass-card rounded-xl p-8 md:p-10 shadow-lg relative overflow-hidden">
-            {/* Decorative elements */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-livrr-green/5 rounded-full"></div>
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-livrr-blue/5 rounded-full"></div>
             
@@ -226,7 +232,6 @@ const Survey = () => {
                   </button>
                 ))}
                 
-                {/* Additional textbox for certain questions */}
                 {questions[currentQuestion].hasTextbox && (
                   <div className="mt-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -244,7 +249,6 @@ const Survey = () => {
                   </div>
                 )}
                 
-                {/* Dropdown for chronic illnesses */}
                 {questions[currentQuestion].hasDropdown && (
                   <div className="mt-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -261,7 +265,6 @@ const Survey = () => {
                       ))}
                     </select>
                     
-                    {/* Display selected conditions */}
                     {(answers[currentQuestion] as string[] || []).length > 0 && (
                       <div className="mt-4 flex flex-wrap gap-2">
                         {(answers[currentQuestion] as string[] || []).map((illness, index) => (
@@ -324,7 +327,6 @@ const Survey = () => {
       
       <Footer />
       
-      {/* Back to top button */}
       <a 
         href="#" 
         className="fixed bottom-6 right-6 bg-gradient-to-r from-livrr-green to-livrr-blue w-12 h-12 rounded-full shadow-md flex items-center justify-center text-white transition-all duration-300 hover:shadow-lg hover:scale-110 z-50"

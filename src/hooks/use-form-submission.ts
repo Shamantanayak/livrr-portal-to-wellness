@@ -26,6 +26,8 @@ export const useFormSubmission = ({
   const submitForm = async (data: any) => {
     setIsSubmitting(true);
     setError(null);
+    
+    console.log(`Submitting ${formType} form with data:`, data);
 
     try {
       const result = await submitFormData(formType, data);
@@ -53,7 +55,10 @@ export const useFormSubmission = ({
       }
     } catch (err) {
       setIsSubmitting(false);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setError(errorMessage);
+      
+      console.error('Form submission error:', errorMessage);
       
       toast({
         title: 'Error',

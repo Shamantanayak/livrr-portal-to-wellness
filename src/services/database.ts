@@ -11,7 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Waitlist form submission
 export const submitWaitlistEntry = async (data: { name: string; email: string }) => {
   try {
-    // Correct schema for waitlist table
+    // Insert data into waitlist table
     const { error } = await supabase
       .from('waitlist')
       .insert([{ 
@@ -21,6 +21,7 @@ export const submitWaitlistEntry = async (data: { name: string; email: string })
       }]);
       
     if (error) throw error;
+    console.log('Successfully submitted to waitlist');
     return { success: true };
   } catch (error) {
     console.error('Error submitting to waitlist:', error);
@@ -36,18 +37,19 @@ export const submitJoinMovement = async (data: {
   age?: string;
 }) => {
   try {
-    // The error shows that user_age_range doesn't exist, let's use user_age instead
+    // Insert data into movement_joiners table
     const { error } = await supabase
       .from('movement_joiners')
       .insert([{ 
         user_name: data.name, 
         user_email: data.email,
         user_phone: data.phone || null,
-        user_age: data.age || null,  // Changed from user_age_range to user_age
+        user_age: data.age || null,
         created_at: new Date().toISOString()
       }]);
       
     if (error) throw error;
+    console.log('Successfully submitted to movement_joiners');
     return { success: true };
   } catch (error) {
     console.error('Error submitting to movement:', error);
@@ -69,6 +71,7 @@ export const submitSurveyData = async (data: any) => {
       .insert([dataWithTimestamp]);
       
     if (error) throw error;
+    console.log('Successfully submitted survey data');
     return { success: true };
   } catch (error) {
     console.error('Error submitting survey data:', error);
