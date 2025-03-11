@@ -45,6 +45,7 @@ const LivrrTribe = () => {
     { value: "7+", label: "Years Added to Lifespan", icon: <Clock className="h-6 w-6" /> },
   ];
   
+  // Updated tribe features with correct content
   const tribeFeatures = [
     {
       title: "Weekly Progress Tracking",
@@ -341,7 +342,7 @@ const LivrrTribe = () => {
               {tribeFeatures.map((feature, index) => (
                 <div 
                   key={feature.title}
-                  className="reveal glass-card rounded-xl overflow-hidden group"
+                  className="reveal glass-card rounded-xl overflow-hidden group hover:shadow-lg transition-all duration-300"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="p-8">

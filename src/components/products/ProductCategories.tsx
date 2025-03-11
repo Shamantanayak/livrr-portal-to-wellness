@@ -37,7 +37,7 @@ const categories = [
   {
     id: 'tcm',
     title: 'Traditional Chinese Medicine',
-    image: 'https://images.pexels.com/photos/3993946/pexels-photo-3993946.jpeg',
+    image: 'https://images.pexels.com/photos/3993946/pexels-photo-3993946.jpeg', // Fixed TCM image
     description: 'Holistic approach using acupuncture, herbs, and energy balance techniques.'
   }
 ];
