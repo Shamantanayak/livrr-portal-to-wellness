@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,19 +7,17 @@ import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart, Twitter
 import WaveDivider from '@/components/ui/WaveDivider';
 import { useToast } from "@/hooks/use-toast";
 import TribeExperience from '@/components/tribe/TribeExperience';
-import { submitFormData } from '@/services/database';
+import { useFormSubmission } from '@/hooks/use-form-submission';
 
 const LivrrTribe = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
   const pulseRef = usePulseAnimation();
-  const { toast } = useToast();
   
   // Form state for Join Movement
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [age, setAge] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(true);
   
   // Social media handles
@@ -47,41 +44,24 @@ const LivrrTribe = () => {
     { value: "7+", label: "Years Added to Lifespan", icon: <Clock className="h-6 w-6" /> },
   ];
   
+  // Using the form submission hook
+  const { isSubmitting, submitForm } = useFormSubmission({
+    formType: 'movement',
+    successMessage: {
+      title: "Welcome to the Livrr Tribe!",
+      description: `Thank you for joining our movement to extend human lifespan.`
+    },
+    onSuccess: () => setShowForm(false)
+  });
+
   const handleJoinMovement = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      // Submit data to database
-      const result = await submitFormData('movement', {
-        name,
-        email,
-        phone,
-        age
-      });
-      
-      // Show success message
-      setIsSubmitting(false);
-      setShowForm(false);
-      
-      // Check if data was stored locally (using optional chaining)
-      const localStorageNote = result.storedLocally ? ' (Stored locally)' : '';
-      
-      toast({
-        title: "Welcome to the Livrr Tribe!",
-        description: `Thank you ${name}! You've joined our movement to extend human lifespan.${localStorageNote}`,
-      });
-    } catch (error) {
-      // In case of any errors in the database service
-      setIsSubmitting(false);
-      
-      toast({
-        title: "Welcome to the Livrr Tribe!",
-        description: `Thank you ${name}! You've joined our movement to extend human lifespan.`,
-      });
-      
-      setShowForm(false);
-    }
+    await submitForm({
+      name,
+      email,
+      phone,
+      age
+    });
   };
 
   // Tribe member photos - updated with reliable images
@@ -312,7 +292,7 @@ const LivrrTribe = () => {
           </div>
         </section>
         
-        {/* Using the new TribeExperience component */}
+        {/* Using the TribeExperience component */}
         <section id="tribe-experience">
           <TribeExperience />
         </section>
@@ -418,7 +398,13 @@ const LivrrTribe = () => {
                       We're excited to have you as part of our tribe. We'll be in touch soon with more information.
                     </p>
                     <button 
-                      onClick={() => setShowForm(true)}
+                      onClick={() => {
+                        setShowForm(true);
+                        setName('');
+                        setEmail('');
+                        setPhone('');
+                        setAge('');
+                      }}
                       className="button-secondary"
                     >
                       Add Another Member

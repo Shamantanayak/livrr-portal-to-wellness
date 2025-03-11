@@ -33,8 +33,10 @@ export const useFormSubmission = ({
       setIsSubmitting(false);
       
       if (result.success) {
-        // Check if data was stored locally (using optional chaining)
-        const localStorageNote = result.storedLocally ? ' (Stored locally for now)' : '';
+        // Check if data was stored locally
+        const localStorageNote = result.storedLocally 
+          ? ' (Stored locally for now)' 
+          : '';
         
         toast({
           title: successMessage.title,

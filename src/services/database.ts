@@ -36,14 +36,14 @@ export const submitJoinMovement = async (data: {
   age?: string;
 }) => {
   try {
-    // Correct schema for movement_joiners table
+    // The error shows that user_age_range doesn't exist, let's use user_age instead
     const { error } = await supabase
       .from('movement_joiners')
       .insert([{ 
         user_name: data.name, 
         user_email: data.email,
         user_phone: data.phone || null,
-        user_age_range: data.age || null,
+        user_age: data.age || null,  // Changed from user_age_range to user_age
         created_at: new Date().toISOString()
       }]);
       
