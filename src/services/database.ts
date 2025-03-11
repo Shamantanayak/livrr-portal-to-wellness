@@ -11,9 +11,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Waitlist form submission
 export const submitWaitlistEntry = async (data: { name: string; email: string }) => {
   try {
+    // Correct schema for waitlist table
     const { error } = await supabase
       .from('waitlist')
-      .insert([data]);
+      .insert([{ 
+        user_name: data.name, 
+        user_email: data.email,
+        created_at: new Date().toISOString()
+      }]);
       
     if (error) throw error;
     return { success: true };
@@ -31,9 +36,16 @@ export const submitJoinMovement = async (data: {
   age?: string;
 }) => {
   try {
+    // Correct schema for movement_joiners table
     const { error } = await supabase
       .from('movement_joiners')
-      .insert([data]);
+      .insert([{ 
+        user_name: data.name, 
+        user_email: data.email,
+        user_phone: data.phone || null,
+        user_age_range: data.age || null,
+        created_at: new Date().toISOString()
+      }]);
       
     if (error) throw error;
     return { success: true };
@@ -46,9 +58,15 @@ export const submitJoinMovement = async (data: {
 // Survey data submission
 export const submitSurveyData = async (data: any) => {
   try {
+    // Add timestamp to survey data
+    const dataWithTimestamp = {
+      ...data,
+      created_at: new Date().toISOString()
+    };
+    
     const { error } = await supabase
       .from('survey_responses')
-      .insert([data]);
+      .insert([dataWithTimestamp]);
       
     if (error) throw error;
     return { success: true };
@@ -62,17 +80,29 @@ export const submitSurveyData = async (data: any) => {
 export const submitFormData = async (formType: 'waitlist' | 'movement' | 'survey', data: any) => {
   try {
     // First try submitting to Supabase
+    let result;
     switch (formType) {
       case 'waitlist':
-        return await submitWaitlistEntry(data);
+        result = await submitWaitlistEntry(data);
+        break;
       case 'movement':
-        return await submitJoinMovement(data);
+        result = await submitJoinMovement(data);
+        break;
       case 'survey':
-        return await submitSurveyData(data);
+        result = await submitSurveyData(data);
+        break;
       default:
         throw new Error('Invalid form type');
     }
+    
+    if (result.success) {
+      return { success: true };
+    } else {
+      throw result.error || new Error('Submission failed');
+    }
   } catch (error) {
+    console.error(`Error submitting ${formType} data:`, error);
+    
     // If Supabase fails, we can store data in localStorage as a fallback
     try {
       // Get existing data or initialize empty array

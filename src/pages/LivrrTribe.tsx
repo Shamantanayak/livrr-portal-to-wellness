@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -6,7 +7,7 @@ import { useScrollReveal, usePulseAnimation } from '@/utils/animations';
 import { Users, Leaf, Shield, Activity, ArrowRight, Award, Clock, Heart, Twitter, Instagram, Facebook, Hash } from 'lucide-react';
 import WaveDivider from '@/components/ui/WaveDivider';
 import { useToast } from "@/hooks/use-toast";
-import TribeBenefits from '@/components/tribe/TribeBenefits';
+import TribeExperience from '@/components/tribe/TribeExperience';
 import { submitFormData } from '@/services/database';
 
 const LivrrTribe = () => {
@@ -59,15 +60,16 @@ const LivrrTribe = () => {
         age
       });
       
-      // Show success regardless of where the data was stored
+      // Show success message
       setIsSubmitting(false);
       setShowForm(false);
       
+      // Check if data was stored locally (using optional chaining)
+      const localStorageNote = result.storedLocally ? ' (Stored locally)' : '';
+      
       toast({
         title: "Welcome to the Livrr Tribe!",
-        description: `Thank you ${name}! You've joined our movement to extend human lifespan.${
-          result.storedLocally ? ' (Stored locally)' : ''
-        }`,
+        description: `Thank you ${name}! You've joined our movement to extend human lifespan.${localStorageNote}`,
       });
     } catch (error) {
       // In case of any errors in the database service
@@ -171,7 +173,7 @@ const LivrrTribe = () => {
                 </a>
                 
                 <a 
-                  href="#tribe-benefits" 
+                  href="#tribe-experience" 
                   className="button-secondary"
                 >
                   Explore Benefits
@@ -310,8 +312,10 @@ const LivrrTribe = () => {
           </div>
         </section>
         
-        {/* Using our new TribeBenefits component */}
-        <TribeBenefits />
+        {/* Using the new TribeExperience component */}
+        <section id="tribe-experience">
+          <TribeExperience />
+        </section>
         
         <section id="join-movement" className="py-20 bg-livrr-beige/10">
           <div className="container">
