@@ -20,10 +20,10 @@ const Footer = () => {
               Promoting longevity through health tracking, fitness assistance, and organic food solutions.
             </p>
             <div className="flex space-x-4">
-              <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-livrr-green/10 hover:bg-livrr-green rounded-full flex items-center justify-center text-livrr-green hover:text-white transition-colors duration-300">
+              <a href="https://www.instagram.com/livrrtribe/profilecard/?igsh=MWFxYTJnYjE3bzR4dg==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-livrr-green/10 hover:bg-livrr-green rounded-full flex items-center justify-center text-livrr-green hover:text-white transition-colors duration-300">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-livrr-green/10 hover:bg-livrr-green rounded-full flex items-center justify-center text-livrr-green hover:text-white transition-colors duration-300">
+              <a href="https://x.com/livrr120670" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-livrr-green/10 hover:bg-livrr-green rounded-full flex items-center justify-center text-livrr-green hover:text-white transition-colors duration-300">
                 <Twitter className="w-5 h-5" />
               </a>
               <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-livrr-green/10 hover:bg-livrr-green rounded-full flex items-center justify-center text-livrr-green hover:text-white transition-colors duration-300">
