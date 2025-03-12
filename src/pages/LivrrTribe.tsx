@@ -22,8 +22,8 @@ const LivrrTribe = () => {
   
   // Social media handles
   const socialMedia = [
-    { platform: 'Instagram', handle: '@livrrtribe', icon: <Instagram className="h-5 w-5" />, url: 'https://instagram.com/' },
-    { platform: 'Twitter', handle: '@livrrtribe', icon: <Twitter className="h-5 w-5" />, url: 'https://twitter.com/' },
+    { platform: 'Instagram', handle: '@livrrtribe', icon: <Instagram className="h-5 w-5" />, url: 'https://www.instagram.com/livrrtribe/profilecard/?igsh=MWFxYTJnYjE3bzR4dg==' },
+    { platform: 'Twitter', handle: '@livrrtribe', icon: <Twitter className="h-5 w-5" />, url: 'https://x.com/livrr120670' },
     { platform: 'Facebook', handle: 'LivrrTribe', icon: <Facebook className="h-5 w-5" />, url: 'https://facebook.com/' },
   ];
   
