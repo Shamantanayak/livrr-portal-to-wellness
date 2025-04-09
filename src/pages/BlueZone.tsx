@@ -1,11 +1,13 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Gamepad2, Car, PersonStanding, TimerReset } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Headphones, Car, PersonStanding, TimerReset, Pause, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const BlueZone = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.1);
@@ -15,16 +17,12 @@ const BlueZone = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showIntro, setShowIntro] = useState(true);
   const [objectsLoaded, setObjectsLoaded] = useState(false);
-  const [gameMode, setGameMode] = useState(false);
-  const [playerPosition, setPlayerPosition] = useState({ x: 50, y: 70 });
+  const [vrMode, setVrMode] = useState(false);
   const [showControls, setShowControls] = useState(true);
-  const [showMap, setShowMap] = useState(false);
-  const [vehicle, setVehicle] = useState<'none' | 'bike' | 'car'>('none');
-  const [isRunning, setIsRunning] = useState(false);
-  const [direction, setDirection] = useState<'left' | 'right' | 'up' | 'down'>('right');
-  const [isMoving, setIsMoving] = useState(false);
-  const [animationFrame, setAnimationFrame] = useState(0);
-  const animationIntervalRef = useRef<number | null>(null);
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [currentMusic, setCurrentMusic] = useState<string>('ambient');
+  const [audioVolume, setAudioVolume] = useState(0.5);
+  const [showAudioControls, setShowAudioControls] = useState(false);
   const { toast } = useToast();
   
   useEffect(() => {
@@ -68,74 +66,25 @@ const BlueZone = () => {
       setShowIntro(false);
     }, 5000);
     
-    // Start animation loop when in game mode
-    if (gameMode) {
-      if (animationIntervalRef.current === null) {
-        animationIntervalRef.current = window.setInterval(() => {
-          setAnimationFrame(prev => (prev + 1) % 4);
-        }, isRunning ? 100 : 200);
-      }
-    }
-    
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (gameMode) {
-        const speed = isRunning ? 8 : 4;
-        const vehicleSpeed = vehicle === 'car' ? 12 : vehicle === 'bike' ? 8 : speed;
-        
+      if (vrMode) {
         switch (e.key) {
-          case 'ArrowUp':
-          case 'w':
-            setDirection('up');
-            setIsMoving(true);
-            setPlayerPosition(prev => ({...prev, y: Math.max(prev.y - vehicleSpeed, 0)}));
-            break;
-          case 'ArrowDown': 
-          case 's':
-            setDirection('down');
-            setIsMoving(true);
-            setPlayerPosition(prev => ({...prev, y: Math.min(prev.y + vehicleSpeed, 85)}));
-            break;
           case 'ArrowLeft':
-          case 'a':
-            setDirection('left');
-            setIsMoving(true);
-            setPlayerPosition(prev => ({...prev, x: Math.max(prev.x - vehicleSpeed, 0)}));
-            if (playerPosition.x < 10) {
-              setCurrentScene(prev => prev === 'village' ? 'beach' : (prev === 'mountains' ? 'village' : 'mountains'));
-              setPlayerPosition(prev => ({...prev, x: 90}));
-              toast({
-                title: "Location Changed",
-                description: `You moved to the ${currentScene === 'village' ? 'Beach' : (currentScene === 'mountains' ? 'Village' : 'Mountains')} area.`,
-              });
-            }
+            setCurrentScene(prev => prev === 'village' ? 'beach' : (prev === 'mountains' ? 'village' : 'mountains'));
+            toast({
+              title: "Scene Changed",
+              description: `You moved to the ${currentScene === 'village' ? 'Beach' : (currentScene === 'mountains' ? 'Village' : 'Mountains')} area.`,
+            });
             break;
           case 'ArrowRight':
-          case 'd':
-            setDirection('right');
-            setIsMoving(true);
-            setPlayerPosition(prev => ({...prev, x: Math.min(prev.x + vehicleSpeed, 95)}));
-            if (playerPosition.x > 90) {
-              setCurrentScene(prev => prev === 'village' ? 'mountains' : (prev === 'beach' ? 'village' : 'beach'));
-              setPlayerPosition(prev => ({...prev, x: 10}));
-              toast({
-                title: "Location Changed",
-                description: `You moved to the ${currentScene === 'village' ? 'Mountains' : (currentScene === 'beach' ? 'Village' : 'Beach')} area.`,
-              });
-            }
+            setCurrentScene(prev => prev === 'village' ? 'mountains' : (prev === 'beach' ? 'village' : 'beach'));
+            toast({
+              title: "Scene Changed",
+              description: `You moved to the ${currentScene === 'village' ? 'Mountains' : (currentScene === 'beach' ? 'Village' : 'Beach')} area.`,
+            });
             break;
           case 'm':
-            setShowMap(prev => !prev);
-            break;
-          case 'Shift':
-            setIsRunning(true);
-            break;
-          case 'v':
-            // Cycle through vehicle options
-            setVehicle(prev => prev === 'none' ? 'bike' : prev === 'bike' ? 'car' : 'none');
-            toast({
-              title: "Vehicle Changed",
-              description: `You are now using ${vehicle === 'none' ? 'a bike' : vehicle === 'bike' ? 'a car' : 'your feet'}.`,
-            });
+            toggleAudio();
             break;
         }
       } else {
@@ -158,49 +107,60 @@ const BlueZone = () => {
       }
     };
     
-    const handleKeyUp = (e: KeyboardEvent) => {
-      if (gameMode) {
-        switch (e.key) {
-          case 'ArrowUp':
-          case 'ArrowDown': 
-          case 'ArrowLeft':
-          case 'ArrowRight':
-          case 'w':
-          case 'a':
-          case 's':
-          case 'd':
-            setIsMoving(false);
-            break;
-          case 'Shift':
-            setIsRunning(false);
-            break;
-        }
-      }
-    };
-    
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
       clearTimeout(timer);
       clearTimeout(introTimer);
-      if (animationIntervalRef.current !== null) {
-        clearInterval(animationIntervalRef.current);
-      }
     };
-  }, [toast, currentScene, gameMode, playerPosition.x, isRunning, vehicle]);
+  }, [toast, currentScene, vrMode]);
 
-  const handlePlayAudio = (audioId: string) => {
-    const audioElements = document.querySelectorAll('audio');
-    audioElements.forEach(audio => {
-      if (audio.id !== audioId) {
-        audio.pause();
+  // Audio Management Functions
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (audioPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
       }
-    });
+      setAudioPlaying(!audioPlaying);
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setAudioVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const changeMusic = (type: string) => {
+    setCurrentMusic(type);
+    if (audioRef.current) {
+      let audioSrc = "";
+      switch (type) {
+        case "ambient":
+          audioSrc = "https://freesound.org/data/previews/463/463745_4929134-lq.mp3";
+          break;
+        case "meditation":
+          audioSrc = "https://freesound.org/data/previews/474/474243_8587596-lq.mp3";
+          break;
+        case "nature":
+          audioSrc = "https://freesound.org/data/previews/531/531953_2391539-lq.mp3";
+          break;
+        case "ocean":
+          audioSrc = "https://freesound.org/data/previews/527/527409_6668427-lq.mp3";
+          break;
+      }
+      audioRef.current.src = audioSrc;
+      if (audioPlaying) {
+        audioRef.current.play();
+      }
+    }
   };
 
   const sceneBackgrounds = {
@@ -215,190 +175,234 @@ const BlueZone = () => {
     beach: "The coastal area provides fresh seafood rich in omega-3s and a calming environment that reduces stress. Many centenarians here swim daily."
   };
 
-  const enterGameMode = () => {
-    setGameMode(true);
+  const sceneMeditations = {
+    village: "Close your eyes and imagine walking through this village. Feel the sense of community, the peaceful pace of life. Breathe deeply, just as the centenarians do every day.",
+    mountains: "Take a deep breath of the mountain air. Visualize yourself walking these paths, feeling stronger with each step. The rhythm of your movement synchronizes with your heartbeat.",
+    beach: "Listen to the waves. Let each breath match their rhythm - in with the wave coming to shore, out as it recedes. Feel the tension leaving your body with each exhale."
+  };
+
+  const enterVRMode = () => {
+    setVrMode(true);
     setShowControls(true);
     document.body.requestFullscreen().catch(err => {
       console.log('Error attempting to enable fullscreen:', err);
     });
     toast({
-      title: "Game Mode Activated",
-      description: "Use WASD or arrow keys to move. Press V for vehicles, Shift to run. Press M to toggle the map.",
+      title: "VR Experience Activated",
+      description: "Use arrow keys to change scenes. Press M to toggle music. Relax and enjoy the immersive experience.",
     });
+    
+    // Start playing ambient music
+    if (audioRef.current) {
+      audioRef.current.src = "https://freesound.org/data/previews/463/463745_4929134-lq.mp3";
+      audioRef.current.volume = audioVolume;
+      audioRef.current.play().catch(err => {
+        console.log('Error playing audio:', err);
+      });
+      setAudioPlaying(true);
+    }
   };
 
-  const exitGameMode = () => {
-    setGameMode(false);
+  const exitVRMode = () => {
+    setVrMode(false);
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(err => {
         console.log('Error attempting to exit fullscreen:', err);
       });
     }
+    
+    // Pause music when exiting VR mode
+    if (audioRef.current && audioPlaying) {
+      audioRef.current.pause();
+      setAudioPlaying(false);
+    }
   };
 
-  // Helper function to render the player character based on direction, vehicle, and movement
-  const renderPlayerCharacter = () => {
-    const directionClasses = {
-      left: "scale-x-[-1]",
-      right: "",
-      up: "rotate-90",
-      down: "rotate-[-90deg]"
-    };
-    
-    const sizeClasses = vehicle === 'none' ? "w-12 h-16" : "w-16 h-16";
-    const animationClass = isMoving ? "animate-bounce" : "";
-    
-    return (
-      <div 
-        className={`absolute transform -translate-x-1/2 -translate-y-1/2 ${directionClasses[direction]} ${animationClass}`}
-        style={{ 
-          left: `${playerPosition.x}%`, 
-          bottom: `${playerPosition.y}%`,
-        }}
-      >
-        {vehicle === 'car' && (
-          <div className={`${sizeClasses} bg-red-500 rounded-md flex items-center justify-center relative`}>
-            <div className="bg-blue-400 absolute top-1/4 w-3/4 h-1/2 rounded-md"></div>
-            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-black rounded-full"></div>
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-black rounded-full"></div>
-          </div>
-        )}
-        
-        {vehicle === 'bike' && (
-          <div className={`${sizeClasses} flex items-center justify-center`}>
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full border-4 border-blue-500"></div>
-              <div className="absolute top-5 left-5 w-10 h-10 rounded-full border-4 border-blue-500"></div>
-              <div className="absolute top-2 left-2 w-8 h-8 bg-blue-500 rotate-45"></div>
-            </div>
-          </div>
-        )}
-        
-        {vehicle === 'none' && (
-          <div className={`${sizeClasses} flex flex-col items-center justify-center`}>
-            <div className="w-6 h-6 bg-blue-500 rounded-full"></div>
-            <div className={`w-4 h-8 bg-blue-700 mt-0.5 ${isRunning ? "animate-bounce" : ""}`}></div>
-            <div className="flex">
-              <div className={`w-1.5 h-5 bg-blue-700 ${isMoving ? (animationFrame % 2 === 0 ? "rotate-45" : "-rotate-45") : ""}`}></div>
-              <div className={`w-1.5 h-5 bg-blue-700 ${isMoving ? (animationFrame % 2 === 0 ? "-rotate-45" : "rotate-45") : ""}`}></div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  if (gameMode) {
+  if (vrMode) {
     return (
       <div className="fixed inset-0 w-full h-full bg-black overflow-hidden perspective-1000">
+        {/* Audio Element */}
+        <audio ref={audioRef} loop />
+
         <div 
           ref={arContainerRef}
           className="absolute inset-0 w-full h-full overflow-hidden perspective-1000"
         >
+          {/* Background Scene */}
           <div 
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-200 ease-out scale-110"
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-out scale-110"
             style={{ 
               backgroundImage: `url(${sceneBackgrounds[currentScene as keyof typeof sceneBackgrounds]})`,
-              transform: `translate3d(${-mousePosition.x * 20}px, ${-mousePosition.y * 20}px, 0) scale(1.1)`,
+              transform: `translate3d(${-mousePosition.x * 30}px, ${-mousePosition.y * 30}px, 0) scale(1.2)`,
               filter: objectsLoaded ? 'none' : 'blur(10px)',
-              transition: objectsLoaded ? 'transform 0.2s ease-out, filter 1s ease' : 'filter 1s ease'
+              transition: objectsLoaded ? 'transform 0.5s ease-out, filter 1s ease' : 'filter 1s ease'
             }}
           >
-            <div className="absolute inset-0 bg-blue-500/10"></div>
+            <div className="absolute inset-0 bg-blue-500/20 backdrop-blur-sm"></div>
           </div>
 
-          {/* Player character */}
-          {renderPlayerCharacter()}
+          {/* Floating Particles */}
+          <div className="absolute inset-0 pointer-events-none">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div 
+                key={i}
+                className="absolute w-4 h-4 rounded-full bg-white/30 animate-float"
+                style={{ 
+                  left: `${Math.random() * 100}%`, 
+                  top: `${Math.random() * 100}%`,
+                  animationDuration: `${5 + Math.random() * 10}s`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  opacity: Math.random() * 0.5 + 0.2,
+                  transform: `scale(${Math.random() * 0.5 + 0.5})`
+                }}
+              />
+            ))}
+          </div>
 
-          {/* Game UI Elements */}
+          {/* 3D Effect Layers */}
+          <div 
+            className="absolute top-40 left-10 w-72 h-72 bg-blue-300/30 rounded-full blur-3xl transition-transform duration-500"
+            style={{ transform: `translate3d(${-mousePosition.x * 50}px, ${-mousePosition.y * 50}px, 100px)` }}
+          ></div>
+          <div 
+            className="absolute top-80 right-10 w-80 h-80 bg-blue-400/30 rounded-full blur-3xl transition-transform duration-500"
+            style={{ transform: `translate3d(${-mousePosition.x * 30}px, ${-mousePosition.y * 30}px, 50px)` }}
+          ></div>
+          <div 
+            className="absolute bottom-40 left-1/4 w-64 h-64 bg-blue-200/40 rounded-full blur-2xl transition-transform duration-500"
+            style={{ transform: `translate3d(${-mousePosition.x * 40}px, ${-mousePosition.y * 40}px, 75px)` }}
+          ></div>
+
+          <div 
+            className="absolute top-1/3 right-1/3 w-20 h-20 bg-white/10 rounded-full blur-md transition-transform duration-500"
+            style={{ transform: `translate3d(${-mousePosition.x * 60}px, ${-mousePosition.y * 60}px, 150px)` }}
+          ></div>
+          <div 
+            className="absolute bottom-1/4 left-1/3 w-16 h-16 bg-white/20 rounded-full blur-sm transition-transform duration-500"
+            style={{ transform: `translate3d(${-mousePosition.x * 70}px, ${-mousePosition.y * 70}px, 200px)` }}
+          ></div>
+
+          {/* VR UI Elements */}
           {showControls && (
             <div className="fixed top-0 left-0 right-0 flex items-center justify-between p-4 bg-black/30 backdrop-blur-sm text-white">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-1 bg-blue-500/50 backdrop-blur-sm rounded">
                   Location: {currentScene === 'village' ? 'Blue Zone Village' : currentScene === 'mountains' ? 'Mountains' : 'Beach'}
                 </span>
-                <span className="px-2 py-1 bg-green-500/50 backdrop-blur-sm rounded">
-                  {vehicle === 'none' ? 'On Foot' : vehicle === 'bike' ? 'Riding Bike' : 'Driving Car'}
-                </span>
                 <button 
                   className="p-2 bg-red-500/50 backdrop-blur-sm rounded hover:bg-red-600/70 transition"
-                  onClick={exitGameMode}
+                  onClick={exitVRMode}
                 >
-                  Exit Game Mode
+                  Exit VR Mode
                 </button>
               </div>
               <div className="flex items-center gap-2">
                 <button 
-                  className="p-2 bg-yellow-500/50 backdrop-blur-sm rounded hover:bg-yellow-600/70 transition"
-                  onClick={() => setVehicle(prev => prev === 'none' ? 'bike' : prev === 'bike' ? 'car' : 'none')}
+                  className="p-2 bg-purple-500/50 backdrop-blur-sm rounded hover:bg-purple-600/70 transition"
+                  onClick={() => setShowAudioControls(prev => !prev)}
                 >
-                  {vehicle === 'none' && <PersonStanding className="h-5 w-5" />}
-                  {vehicle === 'bike' && <Car className="h-5 w-5" />}
-                  {vehicle === 'car' && <PersonStanding className="h-5 w-5" />}
+                  <Headphones className="h-5 w-5" />
                 </button>
                 <button 
                   className="p-2 bg-blue-500/50 backdrop-blur-sm rounded hover:bg-blue-600/70 transition"
-                  onClick={() => setShowMap(prev => !prev)}
+                  onClick={toggleAudio}
                 >
-                  {showMap ? 'Hide Map' : 'Show Map'}
+                  {audioPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
                 </button>
-              </div>
-            </div>
-          )}
-          
-          {/* Map */}
-          {showMap && (
-            <div className="fixed right-4 bottom-4 w-64 h-64 bg-black/70 backdrop-blur-md border border-white/30 rounded-lg overflow-hidden">
-              <div className="p-2 bg-blue-900/50 text-white text-xs font-bold">Blue Zone Map</div>
-              <div className="relative w-full h-full p-2">
-                <div className="flex justify-around absolute inset-x-0 bottom-2 text-white text-xs">
-                  <div className={`px-2 py-1 rounded ${currentScene === 'beach' ? 'bg-blue-500' : 'bg-blue-800/50'}`}>Beach</div>
-                  <div className={`px-2 py-1 rounded ${currentScene === 'village' ? 'bg-blue-500' : 'bg-blue-800/50'}`}>Village</div>
-                  <div className={`px-2 py-1 rounded ${currentScene === 'mountains' ? 'bg-blue-500' : 'bg-blue-800/50'}`}>Mountains</div>
-                </div>
-                {/* Player marker on map */}
-                <div 
-                  className="absolute w-3 h-3 bg-red-500 rounded-full"
-                  style={{ 
-                    left: `${playerPosition.x}%`, 
-                    bottom: `${playerPosition.y}%`,
-                  }}
-                ></div>
               </div>
             </div>
           )}
 
-          {/* Floating Info Card */}
+          {/* Audio Controls Panel */}
+          {showAudioControls && (
+            <div className="fixed top-16 right-4 w-64 p-4 bg-black/70 backdrop-blur-md border border-white/30 rounded-lg text-white">
+              <h4 className="font-semibold mb-2">Audio Controls</h4>
+              <div className="flex items-center justify-between mb-2">
+                <span>Volume</span>
+                <div className="flex items-center gap-2">
+                  <VolumeX className="h-4 w-4" />
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="1" 
+                    step="0.01" 
+                    value={audioVolume} 
+                    onChange={handleVolumeChange}
+                    className="w-20"
+                  />
+                  <Volume2 className="h-4 w-4" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xs font-medium mb-1">Sound Themes</p>
+                <button 
+                  className={`w-full p-1.5 text-sm rounded ${currentMusic === 'ambient' ? 'bg-blue-600' : 'bg-blue-900/50'}`}
+                  onClick={() => changeMusic('ambient')}
+                >
+                  Ambient
+                </button>
+                <button 
+                  className={`w-full p-1.5 text-sm rounded ${currentMusic === 'meditation' ? 'bg-blue-600' : 'bg-blue-900/50'}`}
+                  onClick={() => changeMusic('meditation')}
+                >
+                  Meditation
+                </button>
+                <button 
+                  className={`w-full p-1.5 text-sm rounded ${currentMusic === 'nature' ? 'bg-blue-600' : 'bg-blue-900/50'}`}
+                  onClick={() => changeMusic('nature')}
+                >
+                  Nature
+                </button>
+                <button 
+                  className={`w-full p-1.5 text-sm rounded ${currentMusic === 'ocean' ? 'bg-blue-600' : 'bg-blue-900/50'}`}
+                  onClick={() => changeMusic('ocean')}
+                >
+                  Ocean Waves
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Meditation Panel */}
           <div 
             className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white/20 backdrop-blur-md p-6 rounded-xl border border-white/30 w-11/12 max-w-md text-white shadow-2xl transition-all duration-500"
+            style={{ transform: `translate(-50%, 0) translate3d(${-mousePosition.x * 10}px, ${-mousePosition.y * 10}px, 100px)` }}
           >
             <div className="text-center">
-              <h3 className="text-xl font-bold">{currentScene === 'village' ? 'Blue Zone Village' : currentScene === 'mountains' ? 'Mountain Pathways' : 'Coastal Living'}</h3>
-              <p className="opacity-90 text-sm">{sceneDescriptions[currentScene as keyof typeof sceneDescriptions]}</p>
+              <h3 className="text-xl font-bold mb-2">{currentScene === 'village' ? 'Blue Zone Village' : currentScene === 'mountains' ? 'Mountain Pathways' : 'Coastal Living'}</h3>
+              <p className="text-lg opacity-90 italic mb-4">"{sceneMeditations[currentScene as keyof typeof sceneMeditations]}"</p>
+              <div className="text-sm opacity-70 mt-2">
+                <p>Move your cursor or tilt your device to look around</p>
+                <p>Use left and right arrow keys to change locations</p>
+              </div>
             </div>
             
-            <div className="grid grid-cols-3 gap-2 mt-4">
-              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
-                <ChevronLeft className="h-4 w-4" />
-                <span>A/Left: Move Left</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
-                <ChevronRight className="h-4 w-4" />
-                <span>D/Right: Move Right</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
-                <TimerReset className="h-4 w-4" />
-                <span>Shift: Run</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
-                <Map className="h-4 w-4" />
-                <span>M: Toggle Map</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
-                <Car className="h-4 w-4" />
-                <span>V: Change Vehicle</span>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <div className="w-full flex justify-center">
+                <div className="inline-flex animate-pulse items-center justify-center p-1 px-3 bg-white/10 rounded-full text-xs font-medium">
+                  <span>Take deep breaths...</span>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Scene Navigation Arrows */}
+          <div className="fixed left-4 top-1/2 transform -translate-y-1/2">
+            <button 
+              className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-colors"
+              onClick={() => setCurrentScene(prev => prev === 'village' ? 'beach' : (prev === 'mountains' ? 'village' : 'mountains'))}
+            >
+              <ChevronLeft className="h-6 w-6 text-white" />
+            </button>
+          </div>
+          
+          <div className="fixed right-4 top-1/2 transform -translate-y-1/2">
+            <button 
+              className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-colors"
+              onClick={() => setCurrentScene(prev => prev === 'village' ? 'mountains' : (prev === 'beach' ? 'village' : 'beach'))}
+            >
+              <ChevronRight className="h-6 w-6 text-white" />
+            </button>
           </div>
         </div>
       </div>
@@ -474,11 +478,11 @@ const BlueZone = () => {
 
           <div className="mt-4 flex justify-center">
             <Button
-              onClick={enterGameMode}
+              onClick={enterVRMode}
               className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 animate-pulse"
             >
-              <Gamepad2 className="h-5 w-5" />
-              <span>Enter Blue Zone Game Mode</span>
+              <Headphones className="h-5 w-5" />
+              <span>Enter VR Experience</span>
             </Button>
           </div>
         </div>
@@ -544,10 +548,10 @@ const BlueZone = () => {
                   
                   <button 
                     className="px-6 py-3 bg-purple-600/80 hover:bg-purple-700 text-white rounded-full font-medium transition-colors flex items-center gap-2 shadow-lg shadow-purple-500/30 hover:shadow-purple-400/40 backdrop-blur-sm animate-pulse"
-                    onClick={enterGameMode}
+                    onClick={enterVRMode}
                   >
-                    <Gamepad2 className="h-5 w-5" />
-                    <span>Enter Game Mode</span>
+                    <Headphones className="h-5 w-5" />
+                    <span>Enter VR Experience</span>
                   </button>
                 </div>
               </div>
@@ -578,4 +582,34 @@ const BlueZone = () => {
                   <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors backdrop-blur-sm">
                     <TreeDeciduous className="h-8 w-8 text-blue-200" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">Plant-Based Diet</h3>
+                  <p className="text-white/70">The Blue Zone diet consists primarily of plant foods, with beans, nuts, and whole grains as staples that provide essential nutrients.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1 bg-white/5 backdrop-blur-sm border border-white/10">
+                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors backdrop-blur-sm">
+                    <Users className="h-8 w-8 text-blue-200" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Social Connection</h3>
+                  <p className="text-white/70">Close-knit communities and strong family bonds provide emotional support and purpose, reducing stress and promoting well-being.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl flex flex-col items-center text-center hover:shadow-lg transition group hover:-translate-y-1 bg-white/5 backdrop-blur-sm border border-white/10">
+                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors backdrop-blur-sm">
+                    <Sun className="h-8 w-8 text-blue-200" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Life Purpose</h3>
+                  <p className="text-white/70">Having clear purpose and meaning in life, what Okinawans call "ikigai," contributes to longer, healthier lives with reduced stress.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+      <Footer />
+      <audio ref={audioRef} loop />
+    </div>
+  );
+};
+
+export default BlueZone;
