@@ -26,6 +26,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				display: ['Playfair Display', 'serif'],
+				mono: ['Space Mono', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -196,6 +197,8 @@ export default {
 				'glass-lg': '0 12px 48px 0 rgba(31, 38, 135, 0.1)',
 				'neon': '0 0 10px rgba(76, 175, 80, 0.5), 0 0 20px rgba(76, 175, 80, 0.3)',
 				'neon-blue': '0 0 10px rgba(41, 182, 246, 0.5), 0 0 20px rgba(41, 182, 246, 0.3)',
+				'glow-blue': '0 0 15px 2px rgba(56, 182, 255, 0.6)',
+				'glow-purple': '0 0 15px 2px rgba(124, 58, 237, 0.6)',
 			},
 		}
 	},

@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -36,7 +37,7 @@
   }
 
   ::selection {
-    @apply bg-livrr-green/20 text-livrr-green-dark;
+    @apply bg-blue-900/30 text-blue-200;
   }
 }
 
@@ -140,6 +141,15 @@ a, button, [role="button"], input, select, textarea, [tabindex="0"] {
   }
 }
 
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -173,17 +183,31 @@ a, button, [role="button"], input, select, textarea, [tabindex="0"] {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-black;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-livrr-green/50 rounded-full;
+  @apply bg-blue-500/50 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-livrr-green;
+  @apply bg-blue-400;
+}
+
+/* Custom perspective for 3D effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@keyframes reveal {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
