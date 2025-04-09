@@ -1,10 +1,9 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Gamepad2, Car, Bicycle, PersonStanding, TimerReset } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Gamepad2, Car, PersonStanding, TimerReset } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -267,7 +266,11 @@ const BlueZone = () => {
         
         {vehicle === 'bike' && (
           <div className={`${sizeClasses} flex items-center justify-center`}>
-            <Bicycle className="text-blue-500 w-full h-full" />
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full border-4 border-blue-500"></div>
+              <div className="absolute top-5 left-5 w-10 h-10 rounded-full border-4 border-blue-500"></div>
+              <div className="absolute top-2 left-2 w-8 h-8 bg-blue-500 rotate-45"></div>
+            </div>
           </div>
         )}
         
@@ -329,7 +332,7 @@ const BlueZone = () => {
                   className="p-2 bg-yellow-500/50 backdrop-blur-sm rounded hover:bg-yellow-600/70 transition"
                   onClick={() => setVehicle(prev => prev === 'none' ? 'bike' : prev === 'bike' ? 'car' : 'none')}
                 >
-                  {vehicle === 'none' && <Bicycle className="h-5 w-5" />}
+                  {vehicle === 'none' && <PersonStanding className="h-5 w-5" />}
                   {vehicle === 'bike' && <Car className="h-5 w-5" />}
                   {vehicle === 'car' && <PersonStanding className="h-5 w-5" />}
                 </button>
