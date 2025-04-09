@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useScrollReveal } from '@/utils/animations';
 import { useToast } from '@/hooks/use-toast';
-import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Gamepad2 } from 'lucide-react';
+import { AudioLines, Video, Heart, Users, TreeDeciduous, Mountain, Sun, ArrowRight, Sparkle, Waves, CloudSun, Map, Compass, ChevronLeft, ChevronRight, Play, Gamepad2, Car, Bicycle, PersonStanding, TimerReset } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -20,6 +20,12 @@ const BlueZone = () => {
   const [playerPosition, setPlayerPosition] = useState({ x: 50, y: 70 });
   const [showControls, setShowControls] = useState(true);
   const [showMap, setShowMap] = useState(false);
+  const [vehicle, setVehicle] = useState<'none' | 'bike' | 'car'>('none');
+  const [isRunning, setIsRunning] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right' | 'up' | 'down'>('right');
+  const [isMoving, setIsMoving] = useState(false);
+  const [animationFrame, setAnimationFrame] = useState(0);
+  const animationIntervalRef = useRef<number | null>(null);
   const { toast } = useToast();
   
   useEffect(() => {
@@ -63,21 +69,38 @@ const BlueZone = () => {
       setShowIntro(false);
     }, 5000);
     
+    // Start animation loop when in game mode
+    if (gameMode) {
+      if (animationIntervalRef.current === null) {
+        animationIntervalRef.current = window.setInterval(() => {
+          setAnimationFrame(prev => (prev + 1) % 4);
+        }, isRunning ? 100 : 200);
+      }
+    }
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (gameMode) {
-        const speed = 5;
+        const speed = isRunning ? 8 : 4;
+        const vehicleSpeed = vehicle === 'car' ? 12 : vehicle === 'bike' ? 8 : speed;
+        
         switch (e.key) {
           case 'ArrowUp':
           case 'w':
-            setPlayerPosition(prev => ({...prev, y: Math.max(prev.y - speed, 0)}));
+            setDirection('up');
+            setIsMoving(true);
+            setPlayerPosition(prev => ({...prev, y: Math.max(prev.y - vehicleSpeed, 0)}));
             break;
           case 'ArrowDown': 
           case 's':
-            setPlayerPosition(prev => ({...prev, y: Math.min(prev.y + speed, 85)}));
+            setDirection('down');
+            setIsMoving(true);
+            setPlayerPosition(prev => ({...prev, y: Math.min(prev.y + vehicleSpeed, 85)}));
             break;
           case 'ArrowLeft':
           case 'a':
-            setPlayerPosition(prev => ({...prev, x: Math.max(prev.x - speed, 0)}));
+            setDirection('left');
+            setIsMoving(true);
+            setPlayerPosition(prev => ({...prev, x: Math.max(prev.x - vehicleSpeed, 0)}));
             if (playerPosition.x < 10) {
               setCurrentScene(prev => prev === 'village' ? 'beach' : (prev === 'mountains' ? 'village' : 'mountains'));
               setPlayerPosition(prev => ({...prev, x: 90}));
@@ -89,7 +112,9 @@ const BlueZone = () => {
             break;
           case 'ArrowRight':
           case 'd':
-            setPlayerPosition(prev => ({...prev, x: Math.min(prev.x + speed, 95)}));
+            setDirection('right');
+            setIsMoving(true);
+            setPlayerPosition(prev => ({...prev, x: Math.min(prev.x + vehicleSpeed, 95)}));
             if (playerPosition.x > 90) {
               setCurrentScene(prev => prev === 'village' ? 'mountains' : (prev === 'beach' ? 'village' : 'beach'));
               setPlayerPosition(prev => ({...prev, x: 10}));
@@ -101,6 +126,17 @@ const BlueZone = () => {
             break;
           case 'm':
             setShowMap(prev => !prev);
+            break;
+          case 'Shift':
+            setIsRunning(true);
+            break;
+          case 'v':
+            // Cycle through vehicle options
+            setVehicle(prev => prev === 'none' ? 'bike' : prev === 'bike' ? 'car' : 'none');
+            toast({
+              title: "Vehicle Changed",
+              description: `You are now using ${vehicle === 'none' ? 'a bike' : vehicle === 'bike' ? 'a car' : 'your feet'}.`,
+            });
             break;
         }
       } else {
@@ -123,16 +159,41 @@ const BlueZone = () => {
       }
     };
     
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (gameMode) {
+        switch (e.key) {
+          case 'ArrowUp':
+          case 'ArrowDown': 
+          case 'ArrowLeft':
+          case 'ArrowRight':
+          case 'w':
+          case 'a':
+          case 's':
+          case 'd':
+            setIsMoving(false);
+            break;
+          case 'Shift':
+            setIsRunning(false);
+            break;
+        }
+      }
+    };
+    
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
       clearTimeout(timer);
       clearTimeout(introTimer);
+      if (animationIntervalRef.current !== null) {
+        clearInterval(animationIntervalRef.current);
+      }
     };
-  }, [toast, currentScene, gameMode, playerPosition.x]);
+  }, [toast, currentScene, gameMode, playerPosition.x, isRunning, vehicle]);
 
   const handlePlayAudio = (audioId: string) => {
     const audioElements = document.querySelectorAll('audio');
@@ -163,7 +224,7 @@ const BlueZone = () => {
     });
     toast({
       title: "Game Mode Activated",
-      description: "Use WASD or arrow keys to move. Press M to toggle the map. Explore the Blue Zone world!",
+      description: "Use WASD or arrow keys to move. Press V for vehicles, Shift to run. Press M to toggle the map.",
     });
   };
 
@@ -174,6 +235,54 @@ const BlueZone = () => {
         console.log('Error attempting to exit fullscreen:', err);
       });
     }
+  };
+
+  // Helper function to render the player character based on direction, vehicle, and movement
+  const renderPlayerCharacter = () => {
+    const directionClasses = {
+      left: "scale-x-[-1]",
+      right: "",
+      up: "rotate-90",
+      down: "rotate-[-90deg]"
+    };
+    
+    const sizeClasses = vehicle === 'none' ? "w-12 h-16" : "w-16 h-16";
+    const animationClass = isMoving ? "animate-bounce" : "";
+    
+    return (
+      <div 
+        className={`absolute transform -translate-x-1/2 -translate-y-1/2 ${directionClasses[direction]} ${animationClass}`}
+        style={{ 
+          left: `${playerPosition.x}%`, 
+          bottom: `${playerPosition.y}%`,
+        }}
+      >
+        {vehicle === 'car' && (
+          <div className={`${sizeClasses} bg-red-500 rounded-md flex items-center justify-center relative`}>
+            <div className="bg-blue-400 absolute top-1/4 w-3/4 h-1/2 rounded-md"></div>
+            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-black rounded-full"></div>
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-black rounded-full"></div>
+          </div>
+        )}
+        
+        {vehicle === 'bike' && (
+          <div className={`${sizeClasses} flex items-center justify-center`}>
+            <Bicycle className="text-blue-500 w-full h-full" />
+          </div>
+        )}
+        
+        {vehicle === 'none' && (
+          <div className={`${sizeClasses} flex flex-col items-center justify-center`}>
+            <div className="w-6 h-6 bg-blue-500 rounded-full"></div>
+            <div className={`w-4 h-8 bg-blue-700 mt-0.5 ${isRunning ? "animate-bounce" : ""}`}></div>
+            <div className="flex">
+              <div className={`w-1.5 h-5 bg-blue-700 ${isMoving ? (animationFrame % 2 === 0 ? "rotate-45" : "-rotate-45") : ""}`}></div>
+              <div className={`w-1.5 h-5 bg-blue-700 ${isMoving ? (animationFrame % 2 === 0 ? "-rotate-45" : "rotate-45") : ""}`}></div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   };
 
   if (gameMode) {
@@ -196,16 +305,7 @@ const BlueZone = () => {
           </div>
 
           {/* Player character */}
-          <div 
-            className="absolute w-8 h-8 bg-white/70 rounded-full shadow-lg transform -translate-x-1/2 -translate-y-1/2"
-            style={{ 
-              left: `${playerPosition.x}%`, 
-              bottom: `${playerPosition.y}%`,
-              boxShadow: '0 0 20px 5px rgba(255, 255, 255, 0.6)'
-            }}
-          >
-            <div className="w-full h-full bg-blue-500 rounded-full animate-pulse"></div>
-          </div>
+          {renderPlayerCharacter()}
 
           {/* Game UI Elements */}
           {showControls && (
@@ -214,6 +314,9 @@ const BlueZone = () => {
                 <span className="px-2 py-1 bg-blue-500/50 backdrop-blur-sm rounded">
                   Location: {currentScene === 'village' ? 'Blue Zone Village' : currentScene === 'mountains' ? 'Mountains' : 'Beach'}
                 </span>
+                <span className="px-2 py-1 bg-green-500/50 backdrop-blur-sm rounded">
+                  {vehicle === 'none' ? 'On Foot' : vehicle === 'bike' ? 'Riding Bike' : 'Driving Car'}
+                </span>
                 <button 
                   className="p-2 bg-red-500/50 backdrop-blur-sm rounded hover:bg-red-600/70 transition"
                   onClick={exitGameMode}
@@ -221,7 +324,15 @@ const BlueZone = () => {
                   Exit Game Mode
                 </button>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
+                <button 
+                  className="p-2 bg-yellow-500/50 backdrop-blur-sm rounded hover:bg-yellow-600/70 transition"
+                  onClick={() => setVehicle(prev => prev === 'none' ? 'bike' : prev === 'bike' ? 'car' : 'none')}
+                >
+                  {vehicle === 'none' && <Bicycle className="h-5 w-5" />}
+                  {vehicle === 'bike' && <Car className="h-5 w-5" />}
+                  {vehicle === 'car' && <PersonStanding className="h-5 w-5" />}
+                </button>
                 <button 
                   className="p-2 bg-blue-500/50 backdrop-blur-sm rounded hover:bg-blue-600/70 transition"
                   onClick={() => setShowMap(prev => !prev)}
@@ -242,8 +353,9 @@ const BlueZone = () => {
                   <div className={`px-2 py-1 rounded ${currentScene === 'village' ? 'bg-blue-500' : 'bg-blue-800/50'}`}>Village</div>
                   <div className={`px-2 py-1 rounded ${currentScene === 'mountains' ? 'bg-blue-500' : 'bg-blue-800/50'}`}>Mountains</div>
                 </div>
+                {/* Player marker on map */}
                 <div 
-                  className="absolute w-3 h-3 bg-red-500 rounded-full animate-ping"
+                  className="absolute w-3 h-3 bg-red-500 rounded-full"
                   style={{ 
                     left: `${playerPosition.x}%`, 
                     bottom: `${playerPosition.y}%`,
@@ -262,14 +374,26 @@ const BlueZone = () => {
               <p className="opacity-90 text-sm">{sceneDescriptions[currentScene as keyof typeof sceneDescriptions]}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-2 mt-4">
+            <div className="grid grid-cols-3 gap-2 mt-4">
               <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
                 <ChevronLeft className="h-4 w-4" />
-                <span>A/Left Arrow: Move Left</span>
+                <span>A/Left: Move Left</span>
               </div>
               <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
                 <ChevronRight className="h-4 w-4" />
-                <span>D/Right Arrow: Move Right</span>
+                <span>D/Right: Move Right</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
+                <TimerReset className="h-4 w-4" />
+                <span>Shift: Run</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
+                <Map className="h-4 w-4" />
+                <span>M: Toggle Map</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs opacity-80 bg-black/20 p-1 rounded">
+                <Car className="h-4 w-4" />
+                <span>V: Change Vehicle</span>
               </div>
             </div>
           </div>
